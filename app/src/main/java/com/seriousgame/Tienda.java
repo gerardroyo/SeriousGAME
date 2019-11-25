@@ -114,6 +114,7 @@ public class Tienda extends AppCompatActivity {
 
                     intent.putExtra("user", users);
                     intent.putExtra("tienda", ImgPerfil);
+                    intent.putExtra("stema", sTema);
 
                     startActivityForResult(intent, 12345);
                 }

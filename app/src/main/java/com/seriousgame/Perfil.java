@@ -38,6 +38,8 @@ public class Perfil extends AppCompatActivity {
         imgs = (ArrayList<cTienda>)getIntent().getSerializableExtra("tienda");
         ImgPerfil = imgs;
 
+        sTema = getIntent().getExtras().getString("stema");
+
         ImageView img = (ImageView)findViewById(R.id.imageView2);
 
         for (int i = 0; i < imgs.size(); i++){
@@ -60,6 +62,7 @@ public class Perfil extends AppCompatActivity {
 
                 intent.putExtra("user", users);
                 intent.putExtra("tienda", ImgPerfil);
+                intent.putExtra("stema", sTema);
 
                 startActivityForResult(intent, 1234);
             }
@@ -74,6 +77,7 @@ public class Perfil extends AppCompatActivity {
 
                 intent.putExtra("user", users);
                 intent.putExtra("tienda", ImgPerfil);
+                intent.putExtra("stema", sTema);
 
                 startActivityForResult(intent, 12345);
             }

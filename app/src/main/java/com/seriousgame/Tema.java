@@ -103,6 +103,7 @@ public class Tema extends AppCompatActivity {
                 intent.putExtra("tema", Temas);
                 intent.putExtra("user", Users);
                 intent.putExtra("tienda", Tiendas);
+                intent.putExtra("stema", sTema);
 
                 startActivityForResult(intent, 12345);
             }

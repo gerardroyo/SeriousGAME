@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
         public View getView(int position, View convertView, ViewGroup parent) {
 
-            String stema;
+
 
             LayoutInflater inflater = LayoutInflater.from(getContext());
             View item = inflater.inflate(R.layout.activity_mostrar_lista_main, null);
@@ -86,13 +86,15 @@ public class MainActivity extends AppCompatActivity {
             item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    String sTema = "";
 
                     Intent intent = new Intent(MainActivity.this, Tema.class);
 
                     intent.putExtra("tema", tema);
                     intent.putExtra("user", User);
                     intent.putExtra("tienda", ImgPerfil);
-                    intent.putExtra("stema", tema.getNombre());
+                    sTema = tema.getNombre();
+                    intent.putExtra("stema", sTema);
 
                     context.startActivity(intent);
                 }
