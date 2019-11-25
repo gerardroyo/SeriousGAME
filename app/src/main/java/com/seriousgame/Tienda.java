@@ -16,87 +16,121 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class Tienda extends AppCompatActivity {
 
-    private ArrayList<cTema> Temas = new ArrayList<cTema>();
+    private ImageView img;
 
-    private ArrayList<cUser> User = new ArrayList<cUser>();
+    private ArrayList<cTienda> ImgPerfil;
 
-    private ArrayList<cTienda> ImgPerfil = new ArrayList<cTienda>();
+    private ArrayList<cUser> users;
+
+    private String sTema;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_tienda);
 
-        Temas.clear();
-        Temas.add(new cTema("Sumar"));
-        Temas.add(new cTema("Restar"));
-        Temas.add(new cTema("Multiplicar"));
-        Temas.add(new cTema("Dividir"));
+        ArrayList<cUser> user;
+        user = (ArrayList<cUser>)getIntent().getSerializableExtra("user");
+        users = user;
 
-        User.clear();
-        User.add(new cUser("Sin nombre", "imgperfil", 350));
+        ArrayList<cTienda> imgs;
+        imgs = (ArrayList<cTienda>)getIntent().getSerializableExtra("tienda");
+        ImgPerfil = imgs;
 
-        ImgPerfil.clear();
-        ImgPerfil.add(new cTienda("Awesome", 250, true, true));
-        ImgPerfil.add(new cTienda("Paleta", 250, false, false));
-        ImgPerfil.add(new cTienda("Zombie", 250, false, false));
-        ImgPerfil.add(new cTienda("Buneary", 350, false, false));
-        ImgPerfil.add(new cTienda("Esqueleto", 450, false, false));
-        ImgPerfil.add(new cTienda("Link", 550, false, false));
+        sTema = getIntent().getExtras().getString("stema");
 
-        AdaptadorTemas adaptador = new AdaptadorTemas(this, Temas);
+        AdaptadorTienda adaptador = new AdaptadorTienda(this, ImgPerfil);
 
-        ListView lst = (ListView)findViewById(R.id.listCustom);
+        ListView lst = (ListView)findViewById(R.id.listCustom2);
         lst.setAdapter(adaptador);
 
         // deshabilita el titol
         getSupportActionBar().hide();
 
+        TextView tv = (TextView)findViewById(R.id.tvMoney);
+        tv.setText(Integer.toString(users.get(0).getMonedas()));
+
+        /*img = findViewById(R.id.imgTema);
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+
+        });*/
+
     }
 
-    class AdaptadorTemas extends ArrayAdapter<cTema> {
+    class AdaptadorTienda extends ArrayAdapter<cTienda> {
 
         private Context context;
 
-        public AdaptadorTemas(Context context, ArrayList<cTema> datos) {
-            super(context, R.layout.activity_mostrar_lista_main, datos);
+        public AdaptadorTienda(Context context, ArrayList<cTienda> datos) {
+            super(context, R.layout.activity_mostrar_tienda, datos);
             this.context = context;
         }
 
         public View getView(int position, View convertView, ViewGroup parent) {
 
-            String stema;
-
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            View item = inflater.inflate(R.layout.activity_mostrar_lista_main, null);
+            View item = inflater.inflate(R.layout.activity_mostrar_tienda, null);
 
-            final cTema tema = (cTema) getItem(position);
+            final cTienda imgperfil = (cTienda) getItem(position);
 
-            ImageView img = (ImageView) item.findViewById(R.id.imgTema);
-            String nombre = tema.getNombre().toLowerCase();
+            ImageView img = (ImageView) item.findViewById(R.id.imgImgPerfil);
+            String nombre = imgperfil.getNombre();
             String src = "@drawable/" + nombre;
             src = src.toLowerCase();
             img.setImageResource(getResources().getIdentifier(src, "drawable", getOpPackageName()));
 
-            TextView tvTema = (TextView) item.findViewById(R.id.tvNombre);
-            tvTema.setText(tema.getNombre());
+            TextView tv = (TextView) item.findViewById(R.id.tvImgPerfil);
+            tv.setText(imgperfil.getNombre());
 
-            item.setOnClickListener(new View.OnClickListener() {
+            tv = (TextView) item.findViewById(R.id.tvMoney);
+            tv.setText(Integer.toString(imgperfil.getPrecio()));
+
+            img = findViewById(R.id.imgPerfil);
+            img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Tienda.this, Perfil.class);
+
+                    intent.putExtra("user", users);
+                    intent.putExtra("stema", sTema);
+                    intent.putExtra("tienda", ImgPerfil);
+
+                    startActivityForResult(intent, 1234);
+                }
+
+            });
+
+            img = findViewById(R.id.imgInicio);
+            img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Tienda.this, Tema.class);
+
+                    intent.putExtra("user", users);
+                    intent.putExtra("tienda", ImgPerfil);
+
+                    startActivityForResult(intent, 12345);
+                }
+
+            });
+
+            /*item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    Intent intent = new Intent(MainActivity.this, Tema.class);
+                    Intent intent = new Intent(Tema.this, Tema.class);
 
-                    intent.putExtra("tema", tema);
-                    intent.putExtra("user", User);
-                    intent.putExtra("tienda", ImgPerfil);
-                    intent.putExtra("stema", tema.getNombre());
+                    intent.putExtra("tema", "hola");
 
-                    context.startActivity(intent);
+                    startActivity(intent);
                 }
-            });
+            });*/
 
             return (item);
         }

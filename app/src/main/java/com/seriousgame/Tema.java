@@ -16,87 +16,137 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class Tema extends AppCompatActivity {
 
-    private ArrayList<cTema> Temas = new ArrayList<cTema>();
+    private cTema Temas;
+    private String sTema;
 
-    private ArrayList<cUser> User = new ArrayList<cUser>();
+    private ImageView img;
 
-    private ArrayList<cTienda> ImgPerfil = new ArrayList<cTienda>();
+    private ArrayList<cDificultad> Dificultad = new ArrayList<cDificultad>();
+    private ArrayList<cUser> Users = new ArrayList<cUser>();
+    private ArrayList<cTienda> Tiendas = new ArrayList<cTienda>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_tema);
 
-        Temas.clear();
-        Temas.add(new cTema("Sumar"));
-        Temas.add(new cTema("Restar"));
-        Temas.add(new cTema("Multiplicar"));
-        Temas.add(new cTema("Dividir"));
+        Dificultad.clear();
+        Dificultad.add(new cDificultad("Fácil", "lvlfacilcolor"));
+        Dificultad.add(new cDificultad("Normal", "lvlnormalcolor"));
+        Dificultad.add(new cDificultad("Difícil", "lvldificilcolor"));
 
-        User.clear();
-        User.add(new cUser("Sin nombre", "imgperfil", 350));
 
-        ImgPerfil.clear();
-        ImgPerfil.add(new cTienda("Awesome", 250, true, true));
-        ImgPerfil.add(new cTienda("Paleta", 250, false, false));
-        ImgPerfil.add(new cTienda("Zombie", 250, false, false));
-        ImgPerfil.add(new cTienda("Buneary", 350, false, false));
-        ImgPerfil.add(new cTienda("Esqueleto", 450, false, false));
-        ImgPerfil.add(new cTienda("Link", 550, false, false));
+        cTema tema = (cTema) getIntent().getSerializableExtra("tema");
+        Temas = tema;
 
-        AdaptadorTemas adaptador = new AdaptadorTemas(this, Temas);
+        ArrayList<cUser> user;
+        user = (ArrayList<cUser>)getIntent().getSerializableExtra("user");
+        Users = user;
 
-        ListView lst = (ListView)findViewById(R.id.listCustom);
+        ArrayList<cTienda> tienda;
+        tienda = (ArrayList<cTienda>)getIntent().getSerializableExtra("tienda");
+        Tiendas = tienda;
+
+        sTema = getIntent().getExtras().getString("stema");
+
+        AdaptadorDificultad adaptador = new AdaptadorDificultad(this, Dificultad);
+
+        ListView lst = (ListView)findViewById(R.id.listCustom2);
         lst.setAdapter(adaptador);
 
         // deshabilita el titol
         getSupportActionBar().hide();
 
+        TextView tv = (TextView)findViewById(R.id.tvMoney);
+        tv.setText(Integer.toString(user.get(0).getMonedas()));
+
+        ImageView img = (ImageView) findViewById(R.id.imgTema);
+        //String nombre = tema.getNombre();
+        String src = "@drawable/" + sTema;
+        src = src.toLowerCase();
+        img.setImageResource(getResources().getIdentifier(src,"drawable", getOpPackageName()));
+
+        img = findViewById(R.id.imgTema);
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Tema.this, MainActivity.class);
+                startActivityForResult(intent, 1234);
+            }
+
+        });
+
+        img = findViewById(R.id.imgPerfil);
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Tema.this, Perfil.class);
+
+                intent.putExtra("tema", Temas);
+                intent.putExtra("user", Users);
+                intent.putExtra("tienda", Tiendas);
+                intent.putExtra("stema", sTema);
+
+                startActivityForResult(intent, 1234);
+            }
+
+        });
+
+        img = findViewById(R.id.imgTienda);
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Tema.this, Tienda.class);
+
+                intent.putExtra("tema", Temas);
+                intent.putExtra("user", Users);
+                intent.putExtra("tienda", Tiendas);
+
+                startActivityForResult(intent, 12345);
+            }
+
+        });
+
     }
 
-    class AdaptadorTemas extends ArrayAdapter<cTema> {
+    class AdaptadorDificultad extends ArrayAdapter<cDificultad> {
 
         private Context context;
 
-        public AdaptadorTemas(Context context, ArrayList<cTema> datos) {
-            super(context, R.layout.activity_mostrar_lista_main, datos);
+        public AdaptadorDificultad(Context context, ArrayList<cDificultad> datos) {
+            super(context, R.layout.activity_mostrar_dificultad, datos);
             this.context = context;
         }
 
         public View getView(int position, View convertView, ViewGroup parent) {
 
-            String stema;
-
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            View item = inflater.inflate(R.layout.activity_mostrar_lista_main, null);
+            View item = inflater.inflate(R.layout.activity_mostrar_dificultad, null);
 
-            final cTema tema = (cTema) getItem(position);
+            final cDificultad dificultad = (cDificultad) getItem(position);
 
-            ImageView img = (ImageView) item.findViewById(R.id.imgTema);
-            String nombre = tema.getNombre().toLowerCase();
+            ImageView img = (ImageView) item.findViewById(R.id.imgDificultad);
+            String nombre = dificultad.getImgColor();
             String src = "@drawable/" + nombre;
             src = src.toLowerCase();
             img.setImageResource(getResources().getIdentifier(src, "drawable", getOpPackageName()));
 
-            TextView tvTema = (TextView) item.findViewById(R.id.tvNombre);
-            tvTema.setText(tema.getNombre());
+            TextView tvTema = (TextView) item.findViewById(R.id.tvDificultad);
+            tvTema.setText(dificultad.getNombre() + ": n/n");
 
-            item.setOnClickListener(new View.OnClickListener() {
+            /*item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    Intent intent = new Intent(MainActivity.this, Tema.class);
+                    Intent intent = new Intent(Tema.this, Tema.class);
 
-                    intent.putExtra("tema", tema);
-                    intent.putExtra("user", User);
-                    intent.putExtra("tienda", ImgPerfil);
-                    intent.putExtra("stema", tema.getNombre());
+                    intent.putExtra("tema", "hola");
 
-                    context.startActivity(intent);
+                    startActivity(intent);
                 }
-            });
+            });*/
 
             return (item);
         }
@@ -247,3 +297,4 @@ public class MainActivity extends AppCompatActivity {
     }
 
 }
+
