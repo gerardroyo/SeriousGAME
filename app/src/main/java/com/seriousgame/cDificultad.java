@@ -1,9 +1,11 @@
 package com.seriousgame;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class cDificultad implements Serializable {
 
+    private ArrayList<cLecciones> Lecciones = new ArrayList<cLecciones>();
     private String nombre;
     private String imgColor;
     //private String imgBN;
@@ -13,7 +15,6 @@ public class cDificultad implements Serializable {
         nombre = sNombre;
         imgColor = sImgColor;
         //imgBN = sImgBN;
-
     }
 
     public String getNombre() { return nombre; }
@@ -27,4 +28,10 @@ public class cDificultad implements Serializable {
     /*public String getImgBN() { return imgBN; }
 
     public void setImgBN(String imgBN) { this.imgBN = imgBN; }*/
+
+    public void instanciaLecciones(){
+        Lecciones.clear();
+        Lecciones.add(new cLecciones(0, 1));
+    }
+
 }

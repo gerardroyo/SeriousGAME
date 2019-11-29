@@ -34,9 +34,14 @@ public class MainActivity extends AppCompatActivity {
 
         Temas.clear();
         Temas.add(new cTema("Sumar"));
+            Temas.get(0).instanciaDificultad();
         Temas.add(new cTema("Restar"));
+            Temas.get(1).instanciaDificultad();
         Temas.add(new cTema("Multiplicar"));
+            Temas.get(2).instanciaDificultad();
         Temas.add(new cTema("Dividir"));
+            Temas.get(3).instanciaDificultad();
+
 
         User.clear();
         User.add(new cUser("Sin nombre", "imgperfil", 350));

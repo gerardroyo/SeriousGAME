@@ -25,7 +25,7 @@ public class Tema extends AppCompatActivity {
     private int destino;
     private int origenEnv = 1;
 
-    private ArrayList<cDificultad> Dificultad = new ArrayList<cDificultad>();
+    /*private ArrayList<cDificultad> Dificultad = new ArrayList<cDificultad>();*/
     private ArrayList<cUser> Users = new ArrayList<cUser>();
     private ArrayList<cTienda> Tiendas = new ArrayList<cTienda>();
 
@@ -43,10 +43,10 @@ public class Tema extends AppCompatActivity {
 
         destino = getIntent().getExtras().getInt("destino");
 
-        Dificultad.clear();
+        /*Dificultad.clear();
         Dificultad.add(new cDificultad("Fácil", "lvlfacilcolor"));
         Dificultad.add(new cDificultad("Normal", "lvlnormalcolor"));
-        Dificultad.add(new cDificultad("Difícil", "lvldificilcolor"));
+        Dificultad.add(new cDificultad("Difícil", "lvldificilcolor"));*/
 
 
         cTema tema = (cTema) getIntent().getSerializableExtra("tema");
@@ -62,7 +62,7 @@ public class Tema extends AppCompatActivity {
 
         sTema = getIntent().getExtras().getString("stema");
 
-        AdaptadorDificultad adaptador = new AdaptadorDificultad(this, Dificultad);
+        AdaptadorTema adaptador = new AdaptadorTema(this, Temas);
 
         ListView lst = (ListView)findViewById(R.id.listCustom2);
         lst.setAdapter(adaptador);
@@ -128,11 +128,11 @@ public class Tema extends AppCompatActivity {
 
     }
 
-    class AdaptadorDificultad extends ArrayAdapter<cDificultad> {
+    class AdaptadorTema extends ArrayAdapter<cTema> {
 
         private Context context;
 
-        public AdaptadorDificultad(Context context, ArrayList<cDificultad> datos) {
+        public AdaptadorTema(Context context, ArrayList<cTema> datos) {
             super(context, R.layout.activity_mostrar_dificultad, datos);
             this.context = context;
         }
@@ -142,16 +142,16 @@ public class Tema extends AppCompatActivity {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             View item = inflater.inflate(R.layout.activity_mostrar_dificultad, null);
 
-            final cDificultad dificultad = (cDificultad) getItem(position);
+            final cTema tema = (cTema) getItem(position);
 
             ImageView img = (ImageView) item.findViewById(R.id.imgDificultad);
-            String nombre = dificultad.getImgColor();
+            String nombre = tema.getImgColor();
             String src = "@drawable/" + nombre;
             src = src.toLowerCase();
             img.setImageResource(getResources().getIdentifier(src, "drawable", getOpPackageName()));
 
             TextView tvTema = (TextView) item.findViewById(R.id.tvDificultad);
-            tvTema.setText(dificultad.getNombre() + ": n/n");
+            tvTema.setText(tema.getNombre() + ": n/n");
 
             /*item.setOnClickListener(new View.OnClickListener() {
                 @Override
