@@ -132,7 +132,7 @@ public class Tema extends AppCompatActivity {
 
         private Context context;
 
-        public AdaptadorTema(Context context, ArrayList<cTema> datos) {
+        public AdaptadorTema(Context context, cTema datos) {
             super(context, R.layout.activity_mostrar_dificultad, datos);
             this.context = context;
         }
@@ -145,13 +145,13 @@ public class Tema extends AppCompatActivity {
             final cTema tema = (cTema) getItem(position);
 
             ImageView img = (ImageView) item.findViewById(R.id.imgDificultad);
-            String nombre = tema.getImgColor();
+            String nombre = tema.getDificultad().get(position).getImgColor();
             String src = "@drawable/" + nombre;
             src = src.toLowerCase();
             img.setImageResource(getResources().getIdentifier(src, "drawable", getOpPackageName()));
 
             TextView tvTema = (TextView) item.findViewById(R.id.tvDificultad);
-            tvTema.setText(tema.getNombre() + ": n/n");
+            tvTema.setText(tema.getDificultad().get(position).getNombre() + ": n/n");
 
             /*item.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -18,14 +18,15 @@ public class cTema implements Serializable {
 
     public void setNombre(String nombre) { this.nombre = nombre; }
 
+    public ArrayList<cDificultad> getDificultad() { return Dificultad; }
+
+    public void setDificultad(ArrayList<cDificultad> dificultad) { Dificultad = dificultad; }
+
     public void instanciaDificultad(){
         Dificultad.clear();
         Dificultad.add(new cDificultad("Fácil", "lvlfacilcolor"));
-            Dificultad.get(0).instanciaLecciones();
         Dificultad.add(new cDificultad("Normal", "lvlnormalcolor"));
-            Dificultad.get(1).instanciaLecciones();
         Dificultad.add(new cDificultad("Difícil", "lvldificilcolor"));
-
     }
 
 }

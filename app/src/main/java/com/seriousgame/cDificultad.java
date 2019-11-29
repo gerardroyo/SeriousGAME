@@ -25,6 +25,10 @@ public class cDificultad implements Serializable {
 
     public void setImgColor(String imgColor) { this.imgColor = imgColor; }
 
+    public ArrayList<cLecciones> getLecciones() { return Lecciones; }
+
+    public void setLecciones(ArrayList<cLecciones> lecciones) { Lecciones = lecciones; }
+
     /*public String getImgBN() { return imgBN; }
 
     public void setImgBN(String imgBN) { this.imgBN = imgBN; }*/
