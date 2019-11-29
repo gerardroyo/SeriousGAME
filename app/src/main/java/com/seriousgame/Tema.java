@@ -22,15 +22,26 @@ public class Tema extends AppCompatActivity {
     private String sTema;
 
     private ImageView img;
+    private int destino;
+    private int origenEnv = 1;
 
     private ArrayList<cDificultad> Dificultad = new ArrayList<cDificultad>();
     private ArrayList<cUser> Users = new ArrayList<cUser>();
     private ArrayList<cTienda> Tiendas = new ArrayList<cTienda>();
 
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1234 && resultCode == RESULT_OK) {
+        }
+        if (requestCode == 12345 && resultCode == RESULT_OK) {
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tema);
+
+        destino = getIntent().getExtras().getInt("destino");
 
         Dificultad.clear();
         Dificultad.add(new cDificultad("Fácil", "lvlfacilcolor"));
@@ -72,8 +83,7 @@ public class Tema extends AppCompatActivity {
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Tema.this, MainActivity.class);
-                startActivityForResult(intent, 1234);
+                finish();
             }
 
         });
@@ -88,6 +98,9 @@ public class Tema extends AppCompatActivity {
                 intent.putExtra("user", Users);
                 intent.putExtra("tienda", Tiendas);
                 intent.putExtra("stema", sTema);
+                destino = 2;
+                intent.putExtra("destino", destino);
+                intent.putExtra("origen", origenEnv);
 
                 startActivityForResult(intent, 1234);
             }
@@ -104,6 +117,9 @@ public class Tema extends AppCompatActivity {
                 intent.putExtra("user", Users);
                 intent.putExtra("tienda", Tiendas);
                 intent.putExtra("stema", sTema);
+                destino = 3;
+                intent.putExtra("destino", destino);
+                intent.putExtra("origen", origenEnv);
 
                 startActivityForResult(intent, 12345);
             }

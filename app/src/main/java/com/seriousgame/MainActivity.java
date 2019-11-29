@@ -24,6 +24,9 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<cTienda> ImgPerfil = new ArrayList<cTienda>();
 
+    private int destino = 1;
+    private int origen = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,6 +98,8 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("tienda", ImgPerfil);
                     sTema = tema.getNombre();
                     intent.putExtra("stema", sTema);
+                    intent.putExtra("destino", destino);
+                    intent.putExtra("origen", origen);
 
                     context.startActivity(intent);
                 }

@@ -19,6 +19,9 @@ import java.util.ArrayList;
 public class Tienda extends AppCompatActivity {
 
     private ImageView img;
+    private int destino;
+    private int origenEnv = 3;
+    private int origenRec = 3;
 
     private ArrayList<cTienda> ImgPerfil;
 
@@ -26,10 +29,23 @@ public class Tienda extends AppCompatActivity {
 
     private String sTema;
 
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1234 && resultCode == RESULT_OK) {
+            destino = data.getExtras().getInt("destino");
+            if(destino != 3) {
+                finish();
+            }
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tienda);
+
+        destino = getIntent().getExtras().getInt("destino");
+        origenRec = getIntent().getExtras().getInt("origen");
 
         ArrayList<cUser> user;
         user = (ArrayList<cUser>)getIntent().getSerializableExtra("user");
@@ -91,32 +107,42 @@ public class Tienda extends AppCompatActivity {
             tv = (TextView) item.findViewById(R.id.tvMoney);
             tv.setText(Integer.toString(imgperfil.getPrecio()));
 
-            img = findViewById(R.id.imgPerfil);
-            img.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(Tienda.this, Perfil.class);
-
-                    intent.putExtra("user", users);
-                    intent.putExtra("stema", sTema);
-                    intent.putExtra("tienda", ImgPerfil);
-
-                    startActivityForResult(intent, 1234);
-                }
-
-            });
-
             img = findViewById(R.id.imgInicio);
             img.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(Tienda.this, Tema.class);
+                    Intent intent = new Intent();
 
-                    intent.putExtra("user", users);
-                    intent.putExtra("tienda", ImgPerfil);
-                    intent.putExtra("stema", sTema);
+                    destino = 1;
+                    intent.putExtra("destino", destino);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
 
-                    startActivityForResult(intent, 12345);
+            });
+
+            img = findViewById(R.id.imgPerfil);
+            img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(origenRec == 2) {
+                        Intent intent = new Intent();
+                        destino = 2;
+                        intent.putExtra("destino", destino);
+                        setResult(RESULT_OK, intent);
+                        finish();
+                    } else {
+                        Intent intent = new Intent(Tienda.this, Perfil.class);
+
+                        intent.putExtra("user", users);
+                        intent.putExtra("stema", sTema);
+                        intent.putExtra("tienda", ImgPerfil);
+                        destino = 2;
+                        intent.putExtra("destino", destino);
+                        intent.putExtra("origen", origenEnv);
+
+                        startActivityForResult(intent, 1234);
+                    }
                 }
 
             });

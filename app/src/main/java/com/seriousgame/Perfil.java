@@ -15,15 +15,31 @@ public class Perfil extends AppCompatActivity {
     private ImageView img;
 
     private String sTema;
+    private int destino;
+    private int origenEnv = 2;
+    private int origenRec;
 
     private ArrayList<cTienda> ImgPerfil;
 
     private ArrayList<cUser> users;
 
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 12345 && resultCode == RESULT_OK) {
+            destino = data.getExtras().getInt("destino");
+            if(destino != 2) {
+                finish();
+            }
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
+
+        destino = getIntent().getExtras().getInt("destino");
+        origenRec = getIntent().getExtras().getInt("origen");
 
         // deshabilita el titol
         getSupportActionBar().hide();
@@ -58,13 +74,12 @@ public class Perfil extends AppCompatActivity {
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Perfil.this, Tema.class);
+                Intent intent = new Intent();
 
-                intent.putExtra("user", users);
-                intent.putExtra("tienda", ImgPerfil);
-                intent.putExtra("stema", sTema);
-
-                startActivityForResult(intent, 1234);
+                destino = 1;
+                intent.putExtra("destino", destino);
+                setResult(RESULT_OK, intent);
+                finish();
             }
 
         });
@@ -73,13 +88,24 @@ public class Perfil extends AppCompatActivity {
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Perfil.this, Tienda.class);
+                if(origenRec == 3) {
+                    Intent intent = new Intent();
+                    destino = 3;
+                    intent.putExtra("destino", destino);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                } else {
+                    Intent intent = new Intent(Perfil.this, Tienda.class);
 
-                intent.putExtra("user", users);
-                intent.putExtra("tienda", ImgPerfil);
-                intent.putExtra("stema", sTema);
+                    intent.putExtra("user", users);
+                    intent.putExtra("tienda", ImgPerfil);
+                    intent.putExtra("stema", sTema);
+                    destino = 3;
+                    intent.putExtra("destino", destino);
+                    intent.putExtra("origen", origenEnv);
 
-                startActivityForResult(intent, 12345);
+                    startActivityForResult(intent, 12345);
+                }
             }
 
         });
