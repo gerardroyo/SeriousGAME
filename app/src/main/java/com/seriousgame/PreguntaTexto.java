@@ -103,6 +103,31 @@ public class PreguntaTexto extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        AlertDialog ad;
+        ad = new AlertDialog.Builder(PreguntaTexto.this).create();
+        ad.setTitle("¿Estas seguro?");
+        ad.setMessage("Se perderá todo el progreso de la lección.");
+
+        ad.setButton(AlertDialog.BUTTON_POSITIVE,"SI", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                Intent intentFallos2 = new Intent();
+                intentFallos2.putExtra("fallos", fallos);
+                intentFallos2.putExtra("aciertos", aciertos);
+                setResult(RESULT_OK, intentFallos2);
+                finish();
+            }
+        });
+
+        ad.setButton(AlertDialog.BUTTON_NEGATIVE, "NO", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                // no fem res.
+            }
+        });
+        ad.show();
+    }
+
     public void cargarLayout() {
         numsRandoms();
 
