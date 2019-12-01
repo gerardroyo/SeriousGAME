@@ -4,18 +4,22 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class cDificultad implements Serializable {
-
-    private ArrayList<cLecciones> Lecciones = new ArrayList<cLecciones>();
+    private int id;
     private String nombre;
     private String imgColor;
     //private String imgBN;
 
-    public cDificultad(String sNombre, String sImgColor/*, String sImgBN */) {
+    public cDificultad(int sId, String sNombre, String sImgColor/*, String sImgBN */) {
 
+        id = sId;
         nombre = sNombre;
         imgColor = sImgColor;
         //imgBN = sImgBN;
     }
+
+    public int getId() { return id; }
+
+    public void setId(int id) { this.id = id; }
 
     public String getNombre() { return nombre; }
 
@@ -25,17 +29,8 @@ public class cDificultad implements Serializable {
 
     public void setImgColor(String imgColor) { this.imgColor = imgColor; }
 
-    public ArrayList<cLecciones> getLecciones() { return Lecciones; }
-
-    public void setLecciones(ArrayList<cLecciones> lecciones) { Lecciones = lecciones; }
-
     /*public String getImgBN() { return imgBN; }
 
     public void setImgBN(String imgBN) { this.imgBN = imgBN; }*/
-
-    public void instanciaLecciones(){
-        Lecciones.clear();
-        Lecciones.add(new cLecciones(0, 1));
-    }
 
 }

@@ -57,7 +57,7 @@ public class Tienda extends AppCompatActivity {
 
         sTema = getIntent().getExtras().getString("stema");
 
-        AdaptadorTienda adaptador = new AdaptadorTienda(this, ImgPerfil);
+        AdaptadorTienda adaptador = new AdaptadorTienda(this, MainActivity.Tienda);
 
         ListView lst = (ListView)findViewById(R.id.listCustom2);
         lst.setAdapter(adaptador);
@@ -66,7 +66,7 @@ public class Tienda extends AppCompatActivity {
         getSupportActionBar().hide();
 
         TextView tv = (TextView)findViewById(R.id.tvMoney);
-        tv.setText(Integer.toString(users.get(0).getMonedas()));
+        tv.setText(Integer.toString(MainActivity.User.get(0).getMonedas()));
 
         /*img = findViewById(R.id.imgTema);
         img.setOnClickListener(new View.OnClickListener() {
@@ -134,9 +134,9 @@ public class Tienda extends AppCompatActivity {
                     } else {
                         Intent intent = new Intent(Tienda.this, Perfil.class);
 
-                        intent.putExtra("user", users);
+                        /*intent.putExtra("user", users);
                         intent.putExtra("stema", sTema);
-                        intent.putExtra("tienda", ImgPerfil);
+                        intent.putExtra("tienda", ImgPerfil);*/
                         destino = 2;
                         intent.putExtra("destino", destino);
                         intent.putExtra("origen", origenEnv);

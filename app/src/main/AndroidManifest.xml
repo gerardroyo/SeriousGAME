@@ -9,6 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MainTheme">
+        <activity android:name=".PreguntaSeleccion"></activity>
+        <activity android:name=".PreguntaTexto" />
         <activity android:name=".Tienda" />
         <activity android:name=".Perfil" />
         <activity android:name=".Tema" />

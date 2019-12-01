@@ -44,7 +44,7 @@ public class Perfil extends AppCompatActivity {
         // deshabilita el titol
         getSupportActionBar().hide();
 
-        sTema = getIntent().getExtras().getString("stema");
+        /*sTema = getIntent().getExtras().getString("stema");
 
         ArrayList<cUser> user;
         user = (ArrayList<cUser>)getIntent().getSerializableExtra("user");
@@ -54,19 +54,19 @@ public class Perfil extends AppCompatActivity {
         imgs = (ArrayList<cTienda>)getIntent().getSerializableExtra("tienda");
         ImgPerfil = imgs;
 
-        sTema = getIntent().getExtras().getString("stema");
+        sTema = getIntent().getExtras().getString("stema");*/
 
         ImageView img = (ImageView)findViewById(R.id.imageView2);
 
-        for (int i = 0; i < imgs.size(); i++){
-            if (imgs.get(i).getComprado() == true && ImgPerfil.get(i).getEquipado() == true){
-                String nombre = imgs.get(i).getNombre();
+        for (int i = 0; i < MainActivity.Tienda.size(); i++){
+            if (MainActivity.Tienda.get(i).getComprado() == true && MainActivity.Tienda.get(i).getEquipado() == true){
+                String nombre = MainActivity.Tienda.get(i).getNombre();
                 String src = "@drawable/" + nombre;
                 src = src.toLowerCase();
                 img.setImageResource(getResources().getIdentifier(src, "drawable", getOpPackageName()));
 
                 TextView tv = (TextView)findViewById(R.id.tvNombreUser);
-                tv.setText(users.get(0).getNombre());
+                tv.setText(MainActivity.User.get(0).getNombre());
             }
         }
 
@@ -97,9 +97,9 @@ public class Perfil extends AppCompatActivity {
                 } else {
                     Intent intent = new Intent(Perfil.this, Tienda.class);
 
-                    intent.putExtra("user", users);
+                    /*intent.putExtra("user", users);
                     intent.putExtra("tienda", ImgPerfil);
-                    intent.putExtra("stema", sTema);
+                    intent.putExtra("stema", sTema);*/
                     destino = 3;
                     intent.putExtra("destino", destino);
                     intent.putExtra("origen", origenEnv);

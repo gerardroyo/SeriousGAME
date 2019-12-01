@@ -5,4 +5,15 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name="colorPrimaryDarkMain">#808080</color>
+    <color name="colorPrimary2">#73c457</color>
+    <color name="colorPrimaryDark2">#409328</color>
+    <color name="colorAccent2">#a6f786</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="orange">#F36841</color>
+
+    <color name="red">#CCFF0000</color>
+    <color name="yellow">#CCF7DD00</color>
+    <color name="green">#CC05FF00</color>
+    <color name="blue">#CC04D8FE</color>
 </resources>

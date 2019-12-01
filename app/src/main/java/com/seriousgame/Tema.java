@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.ArrayList;
 
 public class Tema extends AppCompatActivity {
@@ -30,6 +32,19 @@ public class Tema extends AppCompatActivity {
     private ArrayList<cTienda> Tiendas = new ArrayList<cTienda>();
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        int fallos = data.getExtras().getInt("fallos");
+        int aciertos = data.getExtras().getInt("aciertos");
+
+        if (requestCode == 12346 && resultCode == RESULT_OK) {
+            if(fallos == 2) {
+                snackBarError();
+            }
+            if(aciertos == 10){
+                snackBarAprendido();
+            }
+
+        }
+
         if (requestCode == 1234 && resultCode == RESULT_OK) {
         }
         if (requestCode == 12345 && resultCode == RESULT_OK) {
@@ -49,7 +64,7 @@ public class Tema extends AppCompatActivity {
         Dificultad.add(new cDificultad("Difícil", "lvldificilcolor"));*/
 
 
-        cTema tema = (cTema) getIntent().getSerializableExtra("tema");
+        /*cTema tema = (cTema) getIntent().getSerializableExtra("tema");
         Temas = tema;
 
         ArrayList<cUser> user;
@@ -60,9 +75,9 @@ public class Tema extends AppCompatActivity {
         tienda = (ArrayList<cTienda>)getIntent().getSerializableExtra("tienda");
         Tiendas = tienda;
 
-        sTema = getIntent().getExtras().getString("stema");
+        sTema = getIntent().getExtras().getString("stema");*/
 
-        AdaptadorTema adaptador = new AdaptadorTema(this, Temas);
+        AdaptadorTema adaptador = new AdaptadorTema(this, MainActivity.Dificultad);
 
         ListView lst = (ListView)findViewById(R.id.listCustom2);
         lst.setAdapter(adaptador);
@@ -71,11 +86,11 @@ public class Tema extends AppCompatActivity {
         getSupportActionBar().hide();
 
         TextView tv = (TextView)findViewById(R.id.tvMoney);
-        tv.setText(Integer.toString(user.get(0).getMonedas()));
+        tv.setText(Integer.toString(MainActivity.User.get(0).getMonedas()));
 
         ImageView img = (ImageView) findViewById(R.id.imgTema);
         //String nombre = tema.getNombre();
-        String src = "@drawable/" + sTema;
+        String src = "@drawable/" + MainActivity.sTema;
         src = src.toLowerCase();
         img.setImageResource(getResources().getIdentifier(src,"drawable", getOpPackageName()));
 
@@ -94,10 +109,10 @@ public class Tema extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Tema.this, Perfil.class);
 
-                intent.putExtra("tema", Temas);
+                /*intent.putExtra("tema", Temas);
                 intent.putExtra("user", Users);
                 intent.putExtra("tienda", Tiendas);
-                intent.putExtra("stema", sTema);
+                intent.putExtra("stema", sTema);*/
                 destino = 2;
                 intent.putExtra("destino", destino);
                 intent.putExtra("origen", origenEnv);
@@ -113,10 +128,10 @@ public class Tema extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Tema.this, Tienda.class);
 
-                intent.putExtra("tema", Temas);
+                /*intent.putExtra("tema", Temas);
                 intent.putExtra("user", Users);
                 intent.putExtra("tienda", Tiendas);
-                intent.putExtra("stema", sTema);
+                intent.putExtra("stema", sTema);*/
                 destino = 3;
                 intent.putExtra("destino", destino);
                 intent.putExtra("origen", origenEnv);
@@ -128,11 +143,11 @@ public class Tema extends AppCompatActivity {
 
     }
 
-    class AdaptadorTema extends ArrayAdapter<cTema> {
+    class AdaptadorTema extends ArrayAdapter<cDificultad> {
 
         private Context context;
 
-        public AdaptadorTema(Context context, cTema datos) {
+        public AdaptadorTema(Context context, ArrayList<cDificultad> datos) {
             super(context, R.layout.activity_mostrar_dificultad, datos);
             this.context = context;
         }
@@ -142,30 +157,32 @@ public class Tema extends AppCompatActivity {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             View item = inflater.inflate(R.layout.activity_mostrar_dificultad, null);
 
-            final cTema tema = (cTema) getItem(position);
+            final cDificultad dificultad = (cDificultad) getItem(position);
 
             ImageView img = (ImageView) item.findViewById(R.id.imgDificultad);
-            String nombre = tema.getDificultad().get(position).getImgColor();
+            String nombre = dificultad.getImgColor();
             String src = "@drawable/" + nombre;
             src = src.toLowerCase();
             img.setImageResource(getResources().getIdentifier(src, "drawable", getOpPackageName()));
 
             TextView tvTema = (TextView) item.findViewById(R.id.tvDificultad);
-            tvTema.setText(tema.getDificultad().get(position).getNombre() + ": n/n");
+            tvTema.setText(dificultad.getNombre() + ": n/n");
 
-            /*item.setOnClickListener(new View.OnClickListener() {
+            item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    Intent intent = new Intent(Tema.this, Tema.class);
+                    Intent intent = new Intent(Tema.this, PreguntaTexto.class);
 
-                    intent.putExtra("tema", "hola");
+                    intent.putExtra("tema", MainActivity.sTema);
+                    intent.putExtra("dificultad", dificultad.getId());
 
-                    startActivity(intent);
+                    startActivityForResult(intent, 12346);
                 }
-            });*/
+            });
 
             return (item);
+
         }
 
         /*public void escojerColor(int tipo, View item, TextView tv, cPokimon pokemon) {
@@ -311,6 +328,28 @@ public class Tema extends AppCompatActivity {
                     tv.setBackgroundColor(Color.parseColor("#FFFFFFFF"));
             }
         }*/
+    }
+
+    public void snackBarAprendido(){
+        View parentLayout = findViewById(android.R.id.content);
+        Snackbar snack = Snackbar.make(parentLayout, "¡Lección completada!", Snackbar.LENGTH_LONG);
+
+        // Cambiamos el color de fondo del snackbar.
+        View sbv = snack.getView();
+        sbv.setBackgroundColor(Color.parseColor("#1cc61c"));
+
+        snack.show();
+    }
+
+    public void snackBarError(){
+        View parentLayout = findViewById(android.R.id.content);
+        Snackbar snack = Snackbar.make(parentLayout, "Fallaste damasiado...", Snackbar.LENGTH_LONG);
+
+        // Cambiamos el color de fondo del snackbar.
+        View sbv = snack.getView();
+        sbv.setBackgroundColor(Color.parseColor("#9d000a"));
+
+        snack.show();
     }
 
 }

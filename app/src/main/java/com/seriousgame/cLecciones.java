@@ -4,13 +4,19 @@ import java.io.Serializable;
 
 public class cLecciones implements Serializable {
 
+    private int id;
     private int LeccionActual;
     private int LeccionMax;
 
-    public cLecciones(int sLeccionActual, int sLeccionMax) {
+    public cLecciones(int sId,int sLeccionActual, int sLeccionMax) {
+        id = sId;
         LeccionActual = sLeccionActual;
         LeccionMax = sLeccionMax;
     }
+
+    public int getId() { return id; }
+
+    public void setId(int id) { this.id = id; }
 
     public int getLeccionActual() { return LeccionActual; }
 

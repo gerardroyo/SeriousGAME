@@ -18,11 +18,17 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ArrayList<cTema> Temas = new ArrayList<cTema>();
+    public static String sTema;
 
-    private ArrayList<cUser> User = new ArrayList<cUser>();
+    public static ArrayList<cTema> Temas = new ArrayList<cTema>();
 
-    private ArrayList<cTienda> ImgPerfil = new ArrayList<cTienda>();
+    public static ArrayList<cDificultad> Dificultad = new ArrayList<cDificultad>();
+
+    public static ArrayList<cLecciones> Lecciones = new ArrayList<cLecciones>();
+
+    public static ArrayList<cUser> User = new ArrayList<cUser>();
+
+    public static ArrayList<cTienda> Tienda = new ArrayList<cTienda>();
 
     private int destino = 1;
     private int origen = 0;
@@ -33,22 +39,30 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Temas.clear();
-        Temas.add(new cTema("Sumar"));
-        Temas.add(new cTema("Restar"));
-        Temas.add(new cTema("Multiplicar"));
-        Temas.add(new cTema("Dividir"));
+        Temas.add(new cTema(1, "Sumar"));
+        Temas.add(new cTema(2, "Restar"));
+        Temas.add(new cTema(3, "Multiplicar"));
 
+        Dificultad.clear();
+        Dificultad.add(new cDificultad(1, "Fácil", "lvlfacilcolor"));
+        Dificultad.add(new cDificultad(2, "Normal", "lvlnormalcolor"));
+        Dificultad.add(new cDificultad(3, "Difícil", "lvldificilcolor"));
+
+        Lecciones.clear();
+        Lecciones.add(new cLecciones(1, 0, 2));
+        Lecciones.add(new cLecciones(2, 0, 3));
+        Lecciones.add(new cLecciones(3, 0, 4));
 
         User.clear();
         User.add(new cUser("Sin nombre", "imgperfil", 350));
 
-        ImgPerfil.clear();
-        ImgPerfil.add(new cTienda("Awesome", 250, true, true));
-        ImgPerfil.add(new cTienda("Paleta", 250, false, false));
-        ImgPerfil.add(new cTienda("Zombie", 250, false, false));
-        ImgPerfil.add(new cTienda("Buneary", 350, false, false));
-        ImgPerfil.add(new cTienda("Esqueleto", 450, false, false));
-        ImgPerfil.add(new cTienda("Link", 550, false, false));
+        Tienda.clear();
+        Tienda.add(new cTienda("Awesome", 250, true, true));
+        Tienda.add(new cTienda("Paleta", 250, false, false));
+        Tienda.add(new cTienda("Zombie", 250, false, false));
+        Tienda.add(new cTienda("Buneary", 350, false, false));
+        Tienda.add(new cTienda("Esqueleto", 450, false, false));
+        Tienda.add(new cTienda("Link", 550, false, false));
 
         AdaptadorTemas adaptador = new AdaptadorTemas(this, Temas);
 
@@ -90,15 +104,14 @@ public class MainActivity extends AppCompatActivity {
             item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String sTema = "";
 
                     Intent intent = new Intent(MainActivity.this, Tema.class);
 
-                    intent.putExtra("tema", tema);
+                    /*intent.putExtra("tema", tema);
                     intent.putExtra("user", User);
                     intent.putExtra("tienda", ImgPerfil);
+                    intent.putExtra("stema", sTema);*/
                     sTema = tema.getNombre();
-                    intent.putExtra("stema", sTema);
                     intent.putExtra("destino", destino);
                     intent.putExtra("origen", origen);
 
