@@ -32,10 +32,11 @@ public class Tema extends AppCompatActivity {
     private ArrayList<cTienda> Tiendas = new ArrayList<cTienda>();
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        int fallos = data.getExtras().getInt("fallos");
-        int aciertos = data.getExtras().getInt("aciertos");
+
 
         if (requestCode == 12346 && resultCode == RESULT_OK) {
+            int fallos = data.getExtras().getInt("fallos");
+            int aciertos = data.getExtras().getInt("aciertos");
             if(fallos == 2) {
                 snackBarError();
             }
