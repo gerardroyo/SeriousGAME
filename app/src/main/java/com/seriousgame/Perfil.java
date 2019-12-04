@@ -44,18 +44,6 @@ public class Perfil extends AppCompatActivity {
         // deshabilita el titol
         getSupportActionBar().hide();
 
-        /*sTema = getIntent().getExtras().getString("stema");
-
-        ArrayList<cUser> user;
-        user = (ArrayList<cUser>)getIntent().getSerializableExtra("user");
-        users = user;
-
-        ArrayList<cTienda> imgs;
-        imgs = (ArrayList<cTienda>)getIntent().getSerializableExtra("tienda");
-        ImgPerfil = imgs;
-
-        sTema = getIntent().getExtras().getString("stema");*/
-
         ImageView img = (ImageView)findViewById(R.id.imageView2);
 
         for (int i = 0; i < MainActivity.Tienda.size(); i++){

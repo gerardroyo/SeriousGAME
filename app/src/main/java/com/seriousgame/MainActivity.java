@@ -49,12 +49,12 @@ public class MainActivity extends AppCompatActivity {
         Dificultad.add(new cDificultad(3, "Difícil", "lvldificilcolor"));
 
         Lecciones.clear();
-        Lecciones.add(new cLecciones(1, 0, 2));
+        Lecciones.add(new cLecciones(1, 0, 4));
         Lecciones.add(new cLecciones(2, 0, 3));
         Lecciones.add(new cLecciones(3, 0, 4));
 
         User.clear();
-        User.add(new cUser("Sin nombre", "imgperfil", 350));
+        User.add(new cUser("Sin nombre", "imgperfil"));
 
         Tienda.clear();
         Tienda.add(new cTienda("Awesome", 250, true, true));

@@ -6,13 +6,13 @@ public class cUser implements Serializable {
 
     private String nombre;
     private String foto;
-    private int monedas;
+    private int monedas = 0;
+    private int puntos = 0;
 
-    public cUser(String sNombre, String sFoto, int sMonedas) {
+    public cUser(String sNombre, String sFoto) {
 
         nombre = sNombre;
         foto = sFoto;
-        monedas = sMonedas;
     }
 
     public String getNombre() { return nombre; }
@@ -26,4 +26,8 @@ public class cUser implements Serializable {
     public int getMonedas() { return monedas; }
 
     public void setMonedas(int monedas) { this.monedas = monedas; }
+
+    public int getPuntos() { return puntos; }
+
+    public void setPuntos(int puntos) { this.puntos = puntos; }
 }

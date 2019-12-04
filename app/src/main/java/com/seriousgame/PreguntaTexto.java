@@ -47,6 +47,7 @@ public class PreguntaTexto extends AppCompatActivity {
 
     private String stema;
     private int dificultad;
+    private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,7 @@ public class PreguntaTexto extends AppCompatActivity {
 
         stema = getIntent().getExtras().getString("tema");
         dificultad = getIntent().getExtras().getInt("dificultad");
+        position = getIntent().getExtras().getInt("position");
 
         ImageView img = (ImageView) findViewById(R.id.imgClose);
         img.setOnClickListener(new View.OnClickListener() {
@@ -185,6 +187,8 @@ public class PreguntaTexto extends AppCompatActivity {
         pb.setProgress(progreso);
 
         if(aciertos == 10) {
+            int leccionActualSum = MainActivity.Lecciones.get(Tema.positionTOP).getLeccionActual() + 1;
+            MainActivity.Lecciones.get(position).setLeccionActual(leccionActualSum);
             Intent intentAciertos = new Intent();
             intentAciertos.putExtra("fallos", fallos);
             intentAciertos.putExtra("aciertos", aciertos);
