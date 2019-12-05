@@ -2,7 +2,9 @@ package com.seriousgame;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -26,6 +28,7 @@ public class Tema extends AppCompatActivity {
     private ImageView img;
     private int destino;
     private int origenEnv = 1;
+    private int positionTema;
     //public static int positionTOP;
 
     private ArrayList<cUser> Users = new ArrayList<cUser>();
@@ -35,13 +38,21 @@ public class Tema extends AppCompatActivity {
 
 
         if (requestCode == 12346 && resultCode == RESULT_OK) {
+
+            AdaptadorTema adaptador = new AdaptadorTema(this, MainActivity.Temas.get(positionTema).getDificultad());
+
+            ListView lst = (ListView)findViewById(R.id.listCustom2);
+            lst.setAdapter(adaptador);
+
             int fallos = data.getExtras().getInt("fallos");
             int aciertos = data.getExtras().getInt("aciertos");
             if(fallos == 2) {
-                snackBarError();
+                View parentLayout = findViewById(android.R.id.content);
+                SnackBar.snackBarErrorFallos(parentLayout);
             }
             if(aciertos == 10){
-                snackBarAprendido();
+                View parentLayout = findViewById(android.R.id.content);
+                SnackBar.snackBarAprendido(parentLayout);
             }
 
         }
@@ -58,8 +69,9 @@ public class Tema extends AppCompatActivity {
         setContentView(R.layout.activity_tema);
 
         destino = getIntent().getExtras().getInt("destino");
+        positionTema = getIntent().getExtras().getInt("positionTema");
 
-        AdaptadorTema adaptador = new AdaptadorTema(this, MainActivity.Dificultad);
+        AdaptadorTema adaptador = new AdaptadorTema(this, MainActivity.Temas.get(positionTema).getDificultad());
 
         ListView lst = (ListView)findViewById(R.id.listCustom2);
         lst.setAdapter(adaptador);
@@ -126,65 +138,73 @@ public class Tema extends AppCompatActivity {
             this.context = context;
         }
 
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int positionDificultad, View convertView, ViewGroup parent) {
 
             LayoutInflater inflater = LayoutInflater.from(getContext());
             View item = inflater.inflate(R.layout.activity_mostrar_dificultad, null);
 
-            final cDificultad dificultad = (cDificultad) getItem(position);
+            final cDificultad dificultad = (cDificultad)getItem(positionDificultad);
 
-            ImageView img = (ImageView) item.findViewById(R.id.imgDificultad);
-            String nombre = dificultad.getImgColor();
-            String src = "@drawable/" + nombre;
-            src = src.toLowerCase();
-            img.setImageResource(getResources().getIdentifier(src, "drawable", getOpPackageName()));
+            if(MainActivity.Temas.get(positionTema).getDificultad().get(positionDificultad).getBloqueado() == false) {
+                final ImageView img = (ImageView) item.findViewById(R.id.imgDificultad);
+                String nombre = dificultad.getImgColor();
+                String src = "@drawable/" + nombre;
+                src = src.toLowerCase();
+                img.setImageResource(getResources().getIdentifier(src, "drawable", getOpPackageName()));
 
-            TextView tvTema = (TextView) item.findViewById(R.id.tvDificultad);
+                TextView tvTema = (TextView) item.findViewById(R.id.tvDificultad);
 
-            String leccionActualString = Integer.toString(MainActivity.Lecciones.get(position).getLeccionActual());
-            String leccionMaxString = Integer.toString(MainActivity.Lecciones.get(position).getLeccionMax());
-            tvTema.setText(dificultad.getNombre() + ": " +  leccionActualString + "/" + leccionMaxString);
+                if(dificultad.getLecciones().get(0).getLeccionActual() >= dificultad.getLecciones().get(0).getLeccionMax()) {
+                    tvTema.setText(dificultad.getNombre() + ": COMPLETADO");
+                    if(dificultad.getId() == positionDificultad || dificultad.getId() == 3) {
+                    } else {
+                        MainActivity.Temas.get(positionTema).getDificultad().get(positionDificultad + 1).setBloqueado(false);
+                    }
+                } else {
+                    String leccionActualString = Integer.toString(dificultad.getLecciones().get(0).getLeccionActual());
+                    String leccionMaxString = Integer.toString(dificultad.getLecciones().get(0).getLeccionMax());
+                    tvTema.setText(dificultad.getNombre() + ": " +  leccionActualString + "/" + leccionMaxString);
+                }
+            } else {
+                final ImageView imgBN = (ImageView) item.findViewById(R.id.imgDificultad);
+                String nombre = dificultad.getImgBN();
+                String src = "@drawable/" + nombre;
+                src = src.toLowerCase();
+                imgBN.setImageResource(getResources().getIdentifier(src, "drawable", getOpPackageName()));
+
+                TextView tvTema = (TextView) item.findViewById(R.id.tvDificultad);
+                tvTema.setText(dificultad.getNombre() + ": BLOQUEADO");
+            }
 
             item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    Intent intent = new Intent(Tema.this, PreguntaTexto.class);
+                    if(MainActivity.Temas.get(positionTema).getDificultad().get(positionDificultad).getBloqueado() == false) {
+                        Intent intent = new Intent(Tema.this, PreguntaTexto.class);
 
-                    intent.putExtra("tema", MainActivity.sTema);
-                    intent.putExtra("dificultad", dificultad.getId());
-                    intent.putExtra("position", position);
+                        intent.putExtra("tema", MainActivity.sTema);
+                        intent.putExtra("dificultad", dificultad);
+                        intent.putExtra("positionDificultad", positionDificultad);
+                        intent.putExtra("positionTema", positionTema);
 
-                    startActivityForResult(intent, 12346);
+                        startActivityForResult(intent, 12346);
+                    } else {
+                        AlertDialog ad;
+                        ad = new AlertDialog.Builder(Tema.this).create();
+                        ad.setTitle("¡BLOQUEADO!");
+                        ad.setMessage("Para jugar este nivel debes completar el anterior.");
+
+                        ad.setButton(AlertDialog.BUTTON_POSITIVE,"VALE", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                            }
+                        });
+                        ad.show();
+                    }
                 }
             });
-
             return (item);
-
         }
     }
-
-    public void snackBarAprendido(){
-        View parentLayout = findViewById(android.R.id.content);
-        Snackbar snack = Snackbar.make(parentLayout, "¡Lección completada!", Snackbar.LENGTH_LONG);
-
-        // Cambiamos el color de fondo del snackbar.
-        View sbv = snack.getView();
-        sbv.setBackgroundColor(Color.parseColor("#1cc61c"));
-
-        snack.show();
-    }
-
-    public void snackBarError(){
-        View parentLayout = findViewById(android.R.id.content);
-        Snackbar snack = Snackbar.make(parentLayout, "Fallaste damasiado...", Snackbar.LENGTH_LONG);
-
-        // Cambiamos el color de fondo del snackbar.
-        View sbv = snack.getView();
-        sbv.setBackgroundColor(Color.parseColor("#9d000a"));
-
-        snack.show();
-    }
-
 }
 

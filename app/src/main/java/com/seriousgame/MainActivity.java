@@ -43,15 +43,15 @@ public class MainActivity extends AppCompatActivity {
         Temas.add(new cTema(2, "Restar"));
         Temas.add(new cTema(3, "Multiplicar"));
 
-        Dificultad.clear();
-        Dificultad.add(new cDificultad(1, "Fácil", "lvlfacilcolor"));
-        Dificultad.add(new cDificultad(2, "Normal", "lvlnormalcolor"));
-        Dificultad.add(new cDificultad(3, "Difícil", "lvldificilcolor"));
+        /*Dificultad.clear();
+        Dificultad.add(new cDificultad(1, "Fácil", "lvlfacilcolor", 1, 0, 3));
+        Dificultad.add(new cDificultad(2, "Normal", "lvlnormalcolor", 2, 0, 3));
+        Dificultad.add(new cDificultad(3, "Difícil", "lvldificilcolor", 3, 0, 4));*/
 
-        Lecciones.clear();
+        /*Lecciones.clear();
         Lecciones.add(new cLecciones(1, 0, 4));
         Lecciones.add(new cLecciones(2, 0, 3));
-        Lecciones.add(new cLecciones(3, 0, 4));
+        Lecciones.add(new cLecciones(3, 0, 4));*/
 
         User.clear();
         User.add(new cUser("Sin nombre", "imgperfil"));
@@ -83,14 +83,14 @@ public class MainActivity extends AppCompatActivity {
             this.context = context;
         }
 
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int positionTema, View convertView, ViewGroup parent) {
 
 
 
             LayoutInflater inflater = LayoutInflater.from(getContext());
             View item = inflater.inflate(R.layout.activity_mostrar_lista_main, null);
 
-            final cTema tema = (cTema) getItem(position);
+            final cTema tema = (cTema) getItem(positionTema);
 
             ImageView img = (ImageView) item.findViewById(R.id.imgTema);
             String nombre = tema.getNombre().toLowerCase();
@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("tienda", ImgPerfil);
                     intent.putExtra("stema", sTema);*/
                     sTema = tema.getNombre();
+                    intent.putExtra("positionTema", positionTema);
                     intent.putExtra("destino", destino);
                     intent.putExtra("origen", origen);
 

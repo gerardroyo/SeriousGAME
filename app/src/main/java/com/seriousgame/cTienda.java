@@ -1,6 +1,7 @@
 package com.seriousgame;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class cTienda implements Serializable {
 

@@ -47,7 +47,8 @@ public class PreguntaTexto extends AppCompatActivity {
 
     private String stema;
     private int dificultad;
-    private int position;
+    private int positionTema;
+    private int positionDificultad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +59,12 @@ public class PreguntaTexto extends AppCompatActivity {
         getSupportActionBar().hide();
 
         stema = getIntent().getExtras().getString("tema");
-        dificultad = getIntent().getExtras().getInt("dificultad");
-        position = getIntent().getExtras().getInt("position");
+
+        cDificultad dificultadObj = (cDificultad) getIntent().getSerializableExtra("dificultad");
+        dificultad = dificultadObj.getId();
+
+        positionDificultad = getIntent().getExtras().getInt("positionDificultad");
+        positionTema = getIntent().getExtras().getInt("positionTema");
 
         ImageView img = (ImageView) findViewById(R.id.imgClose);
         img.setOnClickListener(new View.OnClickListener() {
@@ -157,11 +162,14 @@ public class PreguntaTexto extends AppCompatActivity {
             cargarLayout();
 
         } else if(edt.getText().toString().isEmpty()) {
-            snackBarEmpty();
+            View parentLayout = findViewById(android.R.id.content);
+            SnackBar.snackBarEmpty(parentLayout);
         } else {
             edt.setText("");
             fallos++;
-            snackBarError();
+
+            View parentLayout = findViewById(android.R.id.content);
+            SnackBar.snackBarError(parentLayout, resultadoString);
             if(fallos == 2) {
                 Intent intentFallos2 = new Intent();
                 intentFallos2.putExtra("fallos", fallos);
@@ -178,7 +186,8 @@ public class PreguntaTexto extends AppCompatActivity {
 
     public void correcto() {
         edt.setText("");
-        snackBarCorrecto();
+        View parentLayout = findViewById(android.R.id.content);
+        SnackBar.snackBarCorrecto(parentLayout);
         aciertos++;
 
         pb = (ProgressBar) findViewById(R.id.pb);
@@ -186,48 +195,15 @@ public class PreguntaTexto extends AppCompatActivity {
         progreso = progreso + 10;
         pb.setProgress(progreso);
 
-        if(aciertos == 10) {
-            int leccionActualSum = MainActivity.Lecciones.get(Tema.positionTOP).getLeccionActual() + 1;
-            MainActivity.Lecciones.get(position).setLeccionActual(leccionActualSum);
+        if(aciertos == 1) {
+            int leccionActualSum = MainActivity.Temas.get(positionTema).getDificultad().get(positionDificultad).getLecciones().get(0).getLeccionActual() + 1;
+            MainActivity.Temas.get(positionTema).getDificultad().get(positionDificultad).getLecciones().get(0).setLeccionActual(leccionActualSum);
             Intent intentAciertos = new Intent();
             intentAciertos.putExtra("fallos", fallos);
             intentAciertos.putExtra("aciertos", aciertos);
             setResult(RESULT_OK, intentAciertos);
             finish();
         }
-    }
-
-    public void snackBarCorrecto(){
-        View parentLayout = findViewById(android.R.id.content);
-        Snackbar snack = Snackbar.make(parentLayout, "¡CORRECTO!", Snackbar.LENGTH_SHORT);
-
-        // Cambiamos el color de fondo del snackbar.
-        View sbv = snack.getView();
-        sbv.setBackgroundColor(Color.parseColor("#1cc61c"));
-
-        snack.show();
-    }
-
-    public void snackBarEmpty(){
-        View parentLayout = findViewById(android.R.id.content);
-        Snackbar snack = Snackbar.make(parentLayout, "¡No has escrito nada!", Snackbar.LENGTH_SHORT);
-
-        // Cambiamos el color de fondo del snackbar.
-        View sbv = snack.getView();
-        sbv.setBackgroundColor(Color.parseColor("#0CB7F2"));
-
-        snack.show();
-    }
-
-    public void snackBarError(){
-        View parentLayout = findViewById(android.R.id.content);
-        Snackbar snack = Snackbar.make(parentLayout, "Respuesta correcta: " + resultadoString + ".", Snackbar.LENGTH_SHORT);
-
-        // Cambiamos el color de fondo del snackbar.
-        View sbv = snack.getView();
-        sbv.setBackgroundColor(Color.parseColor("#9d000a"));
-
-        snack.show();
     }
 
     public void randomButton() {
