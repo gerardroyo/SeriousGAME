@@ -30,8 +30,19 @@ public class MainActivity extends AppCompatActivity {
 
     public static ArrayList<cTienda> Tienda = new ArrayList<cTienda>();
 
+    public static ArrayList<cLogro> Logros = new ArrayList<cLogro>();
+
     private int destino = 1;
     private int origen = 0;
+
+    public static int logro6 = 0;
+    public static int dif1 = 0;
+    public static int fet1 = 0;
+    public static int fet2 = 0;
+    public static int fet3 = 0;
+    public static int fet4 = 0;
+    public static int fet5 = 0;
+    public static int fet6 = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,26 +54,24 @@ public class MainActivity extends AppCompatActivity {
         Temas.add(new cTema(2, "Restar"));
         Temas.add(new cTema(3, "Multiplicar"));
 
-        /*Dificultad.clear();
-        Dificultad.add(new cDificultad(1, "Fácil", "lvlfacilcolor", 1, 0, 3));
-        Dificultad.add(new cDificultad(2, "Normal", "lvlnormalcolor", 2, 0, 3));
-        Dificultad.add(new cDificultad(3, "Difícil", "lvldificilcolor", 3, 0, 4));*/
-
-        /*Lecciones.clear();
-        Lecciones.add(new cLecciones(1, 0, 4));
-        Lecciones.add(new cLecciones(2, 0, 3));
-        Lecciones.add(new cLecciones(3, 0, 4));*/
-
         User.clear();
         User.add(new cUser("Sin nombre", "imgperfil"));
 
         Tienda.clear();
-        Tienda.add(new cTienda("Awesome", 250, true, true));
-        Tienda.add(new cTienda("Paleta", 250, false, false));
-        Tienda.add(new cTienda("Zombie", 250, false, false));
-        Tienda.add(new cTienda("Buneary", 350, false, false));
-        Tienda.add(new cTienda("Esqueleto", 450, false, false));
-        Tienda.add(new cTienda("Link", 550, false, false));
+        Tienda.add(new cTienda("Koi", "koibn", 250, true, true));
+        Tienda.add(new cTienda("Macaco",  "macacobn", 250, false, false));
+        Tienda.add(new cTienda("UngaUnga",  "ungaungabn", 250, false, false));
+        Tienda.add(new cTienda("Kabuki", "kabukibn", 350, false, false));
+        Tienda.add(new cTienda("Monje", "monjebn", 450, false, false));
+        Tienda.add(new cTienda("Samurai", "samuraibn", 550, false, false));
+
+        Logros.clear();
+        Logros.add(new cLogro(1, "Completa 1 leccion", 0, "logro1", 100, 25));
+        Logros.add(new cLogro(2, "Completa 1 dificultad", 0, "logro2", 150, 50));
+        Logros.add(new cLogro(3, "Completa 10 operaciones seguidas sin fallar", 0, "logro3", 150, 50));
+        Logros.add(new cLogro(4, "Completa 1 tema", 0, "logro4", 300, 250));
+        Logros.add(new cLogro(5, "Completa 50 operaciones seguidas sin fallar", 0, "logro5", 350, 300));
+        Logros.add(new cLogro(6, "Completa todos los temas", 0, "logro6", 1000, 1000));
 
         AdaptadorTemas adaptador = new AdaptadorTemas(this, Temas);
 
@@ -122,150 +131,6 @@ public class MainActivity extends AppCompatActivity {
 
             return (item);
         }
-
-        /*public void escojerColor(int tipo, View item, TextView tv, cPokimon pokemon) {
-            String tipoString = "";
-
-            switch (tipo) {
-                case 1:
-
-                    tv.setBackgroundColor(Color.parseColor("#73C457"));
-                    tipoString = "Planta";
-                    introducirTiposString(pokemon, tv, tipoString);
-
-                    break;
-                case 2:
-
-                    tv.setBackgroundColor(Color.parseColor("#DF4E2F"));
-                    tipoString = "Fuego";
-                    introducirTiposString(pokemon, tv, tipoString);
-
-                    break;
-                case 3:
-
-                    tv.setBackgroundColor(Color.parseColor("#B95943"));
-                    tipoString = "Lucha";
-                    introducirTiposString(pokemon, tv, tipoString);
-
-                    break;
-                case 4:
-
-                    tv.setBackgroundColor(Color.parseColor("#329BFE"));
-                    tipoString = "Agua";
-                    introducirTiposString(pokemon, tv, tipoString);
-
-                    break;
-                case 6:
-
-                    tv.setBackgroundColor(Color.parseColor("#71584A"));
-                    tipoString = "Siniestro";
-                    introducirTiposString(pokemon, tv, tipoString);
-
-                    tv.setTextColor(Color.parseColor("#FFFFFFFF"));
-
-                    break;
-                case 7:
-
-                    tv.setBackgroundColor(Color.parseColor("#C2B4B2"));
-                    tipoString = "Normal";
-                    introducirTiposString(pokemon, tv, tipoString);
-
-                    break;
-                case 8:
-
-                    tv.setBackgroundColor(Color.parseColor("#A7B33B"));
-                    tipoString = "Bicho";
-                    introducirTiposString(pokemon, tv, tipoString);
-
-                    break;
-                case 5:
-
-                    tv.setBackgroundColor(Color.parseColor("#DEC054"));
-                    tipoString = "Tierra";
-                    introducirTiposString(pokemon, tv, tipoString);
-
-                    break;
-                case 9:
-
-                    tv.setBackgroundColor(Color.parseColor("#6A9BE8"));
-                    tipoString = "Volador";
-                    introducirTiposString(pokemon, tv, tipoString);
-
-                    break;
-                case 10:
-
-                    tv.setBackgroundColor(Color.parseColor("#884A7A"));
-                    tipoString = "Veneno";
-                    introducirTiposString(pokemon, tv, tipoString);
-
-                    tv.setTextColor(Color.parseColor("#FFFFFFFF"));
-
-                    break;
-                case 11:
-
-                    tv.setBackgroundColor(Color.parseColor("#D06B8D"));
-                    tipoString = "Psíquico";
-                    introducirTiposString(pokemon, tv, tipoString);
-
-                    break;
-                case 17:
-
-                    tv.setBackgroundColor(Color.parseColor("#5A5478"));
-                    tipoString = "Dragon";
-                    introducirTiposString(pokemon, tv, tipoString);
-
-                    tv.setTextColor(Color.parseColor("#FFFFFFFF"));
-
-                    break;
-                case 14:
-
-                    tv.setBackgroundColor(Color.parseColor("#BCAA63"));
-                    tipoString = "Roca";
-                    introducirTiposString(pokemon, tv, tipoString);
-
-                    break;
-                case 12:
-
-                    tv.setBackgroundColor(Color.parseColor("#FDABFD"));
-                    tipoString = "Hada";
-                    introducirTiposString(pokemon, tv, tipoString);
-
-                    break;
-                case 13:
-
-                    tv.setBackgroundColor(Color.parseColor("#6E6DAD"));
-                    tipoString = "Fantasma";
-                    introducirTiposString(pokemon, tv, tipoString);
-
-                    tv.setTextColor(Color.parseColor("#FFFFFFFF"));
-
-                    break;
-                case 16:
-
-                    tv.setBackgroundColor(Color.parseColor("#F4CB5C"));
-                    tipoString = "Eléctrico";
-                    introducirTiposString(pokemon, tv, tipoString);
-
-                    break;
-                case 18:
-
-                    tv.setBackgroundColor(Color.parseColor("#7EDAFD"));
-                    tipoString = "Hielo";
-                    introducirTiposString(pokemon, tv, tipoString);
-
-                    break;
-                case 15:
-
-                    tv.setBackgroundColor(Color.parseColor("#B2A8BC"));
-                    tipoString = "Acero";
-                    introducirTiposString(pokemon, tv, tipoString);
-
-                    break;
-                default:
-
-                    tv.setBackgroundColor(Color.parseColor("#FFFFFFFF"));
-            }
-        }*/
     }
 
 }

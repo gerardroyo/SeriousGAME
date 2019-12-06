@@ -1,12 +1,21 @@
 package com.seriousgame;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 
@@ -43,6 +52,11 @@ public class Perfil extends AppCompatActivity {
 
         // deshabilita el titol
         getSupportActionBar().hide();
+
+        AdaptadorLogros adaptador = new AdaptadorLogros(this, MainActivity.Logros);
+
+        ListView lst = (ListView)findViewById(R.id.listCustom2);
+        lst.setAdapter(adaptador);
 
         ImageView img = (ImageView)findViewById(R.id.imageView2);
 
@@ -99,4 +113,41 @@ public class Perfil extends AppCompatActivity {
         });
 
     }
+
+    class AdaptadorLogros extends ArrayAdapter<cLogro> {
+
+        private Context context;
+
+        public AdaptadorLogros(Context context, ArrayList<cLogro> datos) {
+            super(context, R.layout.activity_mostrar_logros, datos);
+            this.context = context;
+        }
+
+        public View getView(final int positionLogro, View convertView, ViewGroup parent) {
+
+            LayoutInflater inflater = LayoutInflater.from(getContext());
+            View item = inflater.inflate(R.layout.activity_mostrar_logros, null);
+
+            final cLogro logro = (cLogro) getItem(positionLogro);
+
+            ImageView img = (ImageView) item.findViewById(R.id.imgLogro);
+            String nombre = logro.getImg().toLowerCase();
+            String src = "@drawable/" + nombre;
+            src = src.toLowerCase();
+            img.setImageResource(getResources().getIdentifier(src, "drawable", getOpPackageName()));
+
+            TextView tvTema = (TextView) item.findViewById(R.id.tvNombre);
+            tvTema.setText(logro.getNombre());
+
+            ProgressBar pb = (ProgressBar) item.findViewById(R.id.pb2);
+            pb.setProgress(logro.getProgreso());
+
+            TextView tvProgreso = (TextView) item.findViewById(R.id.tvProgreso);
+            String progreso = Integer.toString(logro.getProgreso());
+            tvProgreso.setText(progreso + " %");
+
+            return (item);
+        }
+    }
+
 }

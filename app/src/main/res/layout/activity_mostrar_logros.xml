@@ -9,9 +9,8 @@
     android:orientation="horizontal">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clTienda"
         android:layout_width="match_parent"
-        android:layout_height="210dp">
+        android:layout_height="131dp">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline38"
@@ -25,28 +24,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.333" />
+            app:layout_constraintGuide_percent="0.4" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline47"
+            android:id="@+id/guideline60"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.666" />
+            app:layout_constraintGuide_percent="0.68" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline48"
+            android:id="@+id/guideline76"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.6" />
+            app:layout_constraintGuide_percent="0.74" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline77"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.91" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline49"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.45" />
+            app:layout_constraintGuide_percent="0.56" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline39"
@@ -67,21 +73,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.41" />
+            app:layout_constraintGuide_percent="0.3" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline50"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.58" />
+            app:layout_constraintGuide_percent="0.59" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline51"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.68" />
+            app:layout_constraintGuide_percent="0.72" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline28"
@@ -90,52 +96,51 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.98" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline74"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline70"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.35" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline78"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.32" />
+
         <TextView
             android:id="@+id/tvNombre"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:gravity="center"
-            android:text="TextView"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/guideline46"
-            app:layout_constraintEnd_toStartOf="@+id/guideline28"
-            app:layout_constraintStart_toStartOf="@+id/guideline45"
-            app:layout_constraintTop_toTopOf="@+id/guideline38" />
-
-        <ImageView
-            android:id="@+id/imgComprar"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:backgroundTint="#4a4a4a"
-            app:layout_constraintBottom_toTopOf="@+id/guideline39"
-            app:layout_constraintEnd_toStartOf="@+id/guideline28"
-            app:layout_constraintStart_toStartOf="@+id/guideline45"
-            app:layout_constraintTop_toTopOf="@+id/guideline47"
-            app:srcCompat="@drawable/comprar" />
-
-        <ImageView
-            android:id="@+id/imgMoneyImg"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline48"
-            app:layout_constraintEnd_toStartOf="@+id/guideline51"
-            app:layout_constraintStart_toStartOf="@+id/guideline50"
-            app:layout_constraintTop_toTopOf="@+id/guideline49"
-            app:srcCompat="@drawable/moneda" />
-
-        <TextView
-            android:id="@+id/tvMoneyImg"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
             android:gravity="center_vertical"
-            android:text="250"
-            android:textColor="#ECBD31"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/guideline48"
-            app:layout_constraintEnd_toStartOf="@+id/guideline28"
-            app:layout_constraintStart_toStartOf="@+id/guideline51"
+            app:layout_constraintBottom_toTopOf="@+id/guideline46"
+            app:layout_constraintEnd_toStartOf="@+id/guideline74"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/guideline70"
+            app:layout_constraintTop_toTopOf="@+id/guideline38"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ProgressBar
+            android:id="@+id/pb2"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:progress="0"
+            android:progressDrawable="@drawable/custom_progressbar_logros"
+            app:layout_constraintBottom_toTopOf="@+id/guideline60"
+            app:layout_constraintEnd_toStartOf="@+id/guideline74"
+            app:layout_constraintStart_toStartOf="@+id/guideline70"
             app:layout_constraintTop_toTopOf="@+id/guideline49" />
 
         <ImageView
@@ -147,6 +152,20 @@
             app:layout_constraintStart_toStartOf="@+id/guideline27"
             app:layout_constraintTop_toTopOf="@+id/guideline38"
             app:srcCompat="@drawable/awesome" />
+
+        <TextView
+            android:id="@+id/tvProgreso"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center_horizontal"
+            android:textColor="@color/gold"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/guideline77"
+            app:layout_constraintEnd_toStartOf="@+id/guideline51"
+            app:layout_constraintStart_toStartOf="@+id/guideline50"
+            app:layout_constraintTop_toTopOf="@+id/guideline76"
+            tools:text="x %" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

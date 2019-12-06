@@ -1,10 +1,14 @@
 package com.seriousgame;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,14 +72,42 @@ public class Tienda extends AppCompatActivity {
         TextView tv = (TextView)findViewById(R.id.tvMoney);
         tv.setText(Integer.toString(MainActivity.User.get(0).getMonedas()));
 
-        /*img = findViewById(R.id.imgTema);
+        img = findViewById(R.id.imgInicio);
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent();
+
+                destino = 1;
+                intent.putExtra("destino", destino);
+                setResult(RESULT_OK, intent);
                 finish();
             }
 
-        });*/
+        });
+
+        img = findViewById(R.id.imgPerfil);
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(origenRec == 2) {
+                    Intent intent = new Intent();
+                    destino = 2;
+                    intent.putExtra("destino", destino);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                } else {
+                    Intent intent = new Intent(Tienda.this, Perfil.class);
+
+                    destino = 2;
+                    intent.putExtra("destino", destino);
+                    intent.putExtra("origen", origenEnv);
+
+                    startActivityForResult(intent, 1234);
+                }
+            }
+
+        });
 
     }
 
@@ -88,223 +120,71 @@ public class Tienda extends AppCompatActivity {
             this.context = context;
         }
 
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int positionImg, View convertView, ViewGroup parent) {
 
             LayoutInflater inflater = LayoutInflater.from(getContext());
             View item = inflater.inflate(R.layout.activity_mostrar_tienda, null);
 
-            final cTienda imgperfil = (cTienda) getItem(position);
+            final cTienda imgperfil = (cTienda) getItem(positionImg);
 
-            ImageView img = (ImageView) item.findViewById(R.id.imgImgPerfil);
-            String nombre = imgperfil.getNombre();
-            String src = "@drawable/" + nombre;
-            src = src.toLowerCase();
-            img.setImageResource(getResources().getIdentifier(src, "drawable", getOpPackageName()));
+            if(imgperfil.getComprado() == true) {
 
-            TextView tv = (TextView) item.findViewById(R.id.tvImgPerfil);
-            tv.setText(imgperfil.getNombre());
 
-            tv = (TextView) item.findViewById(R.id.tvMoney);
-            tv.setText(Integer.toString(imgperfil.getPrecio()));
+                ConstraintLayout cl = (ConstraintLayout) item.findViewById(R.id.clTienda);
+                cl.setBackgroundColor(Color.parseColor("#bababa"));
 
-            img = findViewById(R.id.imgInicio);
-            img.setOnClickListener(new View.OnClickListener() {
+                ImageView img = (ImageView) item.findViewById(R.id.imgLogro);
+                String nombre = imgperfil.getNombreBN();
+                String src = "@drawable/" + nombre;
+                img.setImageResource(getResources().getIdentifier(src, "drawable", getOpPackageName()));
+
+                img = (ImageView) item.findViewById(R.id.imgMoneyImg);
+                src = "@drawable/monedabn";
+                img.setImageResource(getResources().getIdentifier(src, "drawable", getOpPackageName()));
+
+                img = (ImageView) item.findViewById(R.id.imgComprar);
+                src = "@drawable/comprarbn";
+                img.setImageResource(getResources().getIdentifier(src, "drawable", getOpPackageName()));
+
+                TextView tv1 = (TextView) item.findViewById(R.id.tvMoneyImg);
+                tv1.setTextColor(Color.parseColor("#000000"));
+            } else {
+                ImageView img = (ImageView) item.findViewById(R.id.imgLogro);
+                String nombre = imgperfil.getNombre();
+                String src = "@drawable/" + nombre;
+                src = src.toLowerCase();
+                img.setImageResource(getResources().getIdentifier(src, "drawable", getOpPackageName()));
+
+                TextView tv = (TextView) item.findViewById(R.id.tvNombre);
+                tv.setText(imgperfil.getNombre());
+
+                tv = (TextView) item.findViewById(R.id.tvMoneyImg);
+                tv.setText(Integer.toString(imgperfil.getPrecio()));
+            }
+
+            item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent();
 
-                    destino = 1;
-                    intent.putExtra("destino", destino);
-                    setResult(RESULT_OK, intent);
-                    finish();
-                }
-
-            });
-
-            img = findViewById(R.id.imgPerfil);
-            img.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(origenRec == 2) {
-                        Intent intent = new Intent();
-                        destino = 2;
-                        intent.putExtra("destino", destino);
-                        setResult(RESULT_OK, intent);
-                        finish();
+                    if(imgperfil.getComprado() == false) {
+                        if(imgperfil.getPrecio() <= MainActivity.User.get(0).getMonedas()) {
+                            MainActivity.Tienda.get(positionImg).setComprado(true);
+                            MainActivity.User.get(0).setMonedas(MainActivity.User.get(0).getMonedas() - imgperfil.getPrecio());
+                            finish();
+                            startActivity(getIntent());
+                        } else {
+                            View parentLayout = findViewById(android.R.id.content);
+                            SnackBar.snackBarErrorCompra(parentLayout);
+                        }
                     } else {
-                        Intent intent = new Intent(Tienda.this, Perfil.class);
-
-                        /*intent.putExtra("user", users);
-                        intent.putExtra("stema", sTema);
-                        intent.putExtra("tienda", ImgPerfil);*/
-                        destino = 2;
-                        intent.putExtra("destino", destino);
-                        intent.putExtra("origen", origenEnv);
-
-                        startActivityForResult(intent, 1234);
+                        View parentLayout = findViewById(android.R.id.content);
+                        SnackBar.snackBarYaCompraste(parentLayout);
                     }
-                }
 
+                }
             });
-
-            /*item.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    Intent intent = new Intent(Tema.this, Tema.class);
-
-                    intent.putExtra("tema", "hola");
-
-                    startActivity(intent);
-                }
-            });*/
 
             return (item);
         }
-
-        /*public void escojerColor(int tipo, View item, TextView tv, cPokimon pokemon) {
-            String tipoString = "";
-
-            switch (tipo) {
-                case 1:
-
-                    tv.setBackgroundColor(Color.parseColor("#73C457"));
-                    tipoString = "Planta";
-                    introducirTiposString(pokemon, tv, tipoString);
-
-                    break;
-                case 2:
-
-                    tv.setBackgroundColor(Color.parseColor("#DF4E2F"));
-                    tipoString = "Fuego";
-                    introducirTiposString(pokemon, tv, tipoString);
-
-                    break;
-                case 3:
-
-                    tv.setBackgroundColor(Color.parseColor("#B95943"));
-                    tipoString = "Lucha";
-                    introducirTiposString(pokemon, tv, tipoString);
-
-                    break;
-                case 4:
-
-                    tv.setBackgroundColor(Color.parseColor("#329BFE"));
-                    tipoString = "Agua";
-                    introducirTiposString(pokemon, tv, tipoString);
-
-                    break;
-                case 6:
-
-                    tv.setBackgroundColor(Color.parseColor("#71584A"));
-                    tipoString = "Siniestro";
-                    introducirTiposString(pokemon, tv, tipoString);
-
-                    tv.setTextColor(Color.parseColor("#FFFFFFFF"));
-
-                    break;
-                case 7:
-
-                    tv.setBackgroundColor(Color.parseColor("#C2B4B2"));
-                    tipoString = "Normal";
-                    introducirTiposString(pokemon, tv, tipoString);
-
-                    break;
-                case 8:
-
-                    tv.setBackgroundColor(Color.parseColor("#A7B33B"));
-                    tipoString = "Bicho";
-                    introducirTiposString(pokemon, tv, tipoString);
-
-                    break;
-                case 5:
-
-                    tv.setBackgroundColor(Color.parseColor("#DEC054"));
-                    tipoString = "Tierra";
-                    introducirTiposString(pokemon, tv, tipoString);
-
-                    break;
-                case 9:
-
-                    tv.setBackgroundColor(Color.parseColor("#6A9BE8"));
-                    tipoString = "Volador";
-                    introducirTiposString(pokemon, tv, tipoString);
-
-                    break;
-                case 10:
-
-                    tv.setBackgroundColor(Color.parseColor("#884A7A"));
-                    tipoString = "Veneno";
-                    introducirTiposString(pokemon, tv, tipoString);
-
-                    tv.setTextColor(Color.parseColor("#FFFFFFFF"));
-
-                    break;
-                case 11:
-
-                    tv.setBackgroundColor(Color.parseColor("#D06B8D"));
-                    tipoString = "Psíquico";
-                    introducirTiposString(pokemon, tv, tipoString);
-
-                    break;
-                case 17:
-
-                    tv.setBackgroundColor(Color.parseColor("#5A5478"));
-                    tipoString = "Dragon";
-                    introducirTiposString(pokemon, tv, tipoString);
-
-                    tv.setTextColor(Color.parseColor("#FFFFFFFF"));
-
-                    break;
-                case 14:
-
-                    tv.setBackgroundColor(Color.parseColor("#BCAA63"));
-                    tipoString = "Roca";
-                    introducirTiposString(pokemon, tv, tipoString);
-
-                    break;
-                case 12:
-
-                    tv.setBackgroundColor(Color.parseColor("#FDABFD"));
-                    tipoString = "Hada";
-                    introducirTiposString(pokemon, tv, tipoString);
-
-                    break;
-                case 13:
-
-                    tv.setBackgroundColor(Color.parseColor("#6E6DAD"));
-                    tipoString = "Fantasma";
-                    introducirTiposString(pokemon, tv, tipoString);
-
-                    tv.setTextColor(Color.parseColor("#FFFFFFFF"));
-
-                    break;
-                case 16:
-
-                    tv.setBackgroundColor(Color.parseColor("#F4CB5C"));
-                    tipoString = "Eléctrico";
-                    introducirTiposString(pokemon, tv, tipoString);
-
-                    break;
-                case 18:
-
-                    tv.setBackgroundColor(Color.parseColor("#7EDAFD"));
-                    tipoString = "Hielo";
-                    introducirTiposString(pokemon, tv, tipoString);
-
-                    break;
-                case 15:
-
-                    tv.setBackgroundColor(Color.parseColor("#B2A8BC"));
-                    tipoString = "Acero";
-                    introducirTiposString(pokemon, tv, tipoString);
-
-                    break;
-                default:
-
-                    tv.setBackgroundColor(Color.parseColor("#FFFFFFFF"));
-            }
-        }*/
     }
-
 }

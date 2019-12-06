@@ -154,6 +154,7 @@
         android:textColor="#ECBD31"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:autoSizeTextType="uniform"
         app:layout_constraintBottom_toTopOf="@+id/guideline7"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.0"

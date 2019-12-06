@@ -38,6 +38,26 @@ public class SnackBar {
         snack.show();
     }
 
+    public static void snackBarErrorCompra(View parentLayout){
+        Snackbar snack = Snackbar.make(parentLayout, "No tienes suficientes monedas", Snackbar.LENGTH_SHORT);
+
+        // Cambiamos el color de fondo del snackbar.
+        View sbv = snack.getView();
+        sbv.setBackgroundColor(Color.parseColor("#9d000a"));
+
+        snack.show();
+    }
+
+    public static void snackBarYaCompraste(View parentLayout) {
+        Snackbar snack = Snackbar.make(parentLayout, "Ya has comprado esta imagen", Snackbar.LENGTH_SHORT);
+
+        // Cambiamos el color de fondo del snackbar.
+        View sbv = snack.getView();
+        sbv.setBackgroundColor(Color.parseColor("#0CB7F2"));
+
+        snack.show();
+    }
+
     public static void snackBarErrorFallos(View parentLayout){
         Snackbar snack = Snackbar.make(parentLayout, "Fallaste el máximo de veces: 2", Snackbar.LENGTH_LONG);
 

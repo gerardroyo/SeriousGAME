@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,12 +12,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 public class PreguntaTexto extends AppCompatActivity {
@@ -168,6 +163,9 @@ public class PreguntaTexto extends AppCompatActivity {
             edt.setText("");
             fallos++;
 
+            MainActivity.Logros.get(4).setProgreso(0);
+            MainActivity.Logros.get(2).setProgreso(0);
+
             View parentLayout = findViewById(android.R.id.content);
             SnackBar.snackBarError(parentLayout, resultadoString);
             if(fallos == 2) {
@@ -190,12 +188,79 @@ public class PreguntaTexto extends AppCompatActivity {
         SnackBar.snackBarCorrecto(parentLayout);
         aciertos++;
 
+        int plusMonedas = MainActivity.User.get(0).getMonedas();
+        MainActivity.User.get(0).setMonedas(plusMonedas + 15);
+
+        int plusPuntos = MainActivity.User.get(0).getPuntos();;
+        MainActivity.User.get(0).setPuntos(plusPuntos + 15);
+
+        if(MainActivity.Temas.get(positionTema).getDificultad().get(positionDificultad).getLecciones().get(0).getLeccionActual() == 2) {
+            if(MainActivity.Temas.get(positionTema).getDificultad().get(positionDificultad).getId() == 3) {
+                plusMonedas = MainActivity.User.get(0).getMonedas();
+                MainActivity.User.get(0).setMonedas(plusMonedas + 60);
+
+                plusPuntos = MainActivity.User.get(0).getPuntos();;
+                MainActivity.User.get(0).setPuntos(plusPuntos + 60);
+            }
+
+            plusMonedas = MainActivity.User.get(0).getMonedas();
+            MainActivity.User.get(0).setMonedas(plusMonedas + 30);
+
+            plusPuntos = MainActivity.User.get(0).getPuntos();;
+            MainActivity.User.get(0).setPuntos(plusPuntos + 30);
+        }
+
         pb = (ProgressBar) findViewById(R.id.pb);
         progreso = pb.getProgress();
         progreso = progreso + 10;
         pb.setProgress(progreso);
 
+        if(MainActivity.Logros.get(4).getProgreso() < 100) {
+
+            int progresLogro5 = MainActivity.Logros.get(4).getProgreso();
+            MainActivity.Logros.get(4).setProgreso(progresLogro5 + 2);
+
+        }
+
+        if(MainActivity.Logros.get(2).getProgreso() < 100) {
+
+            int progresLogro3 = MainActivity.Logros.get(2).getProgreso();
+            MainActivity.Logros.get(2).setProgreso(progresLogro3 + 10);
+
+        }
+
         if(aciertos == 1) {
+            MainActivity.Logros.get(0).setProgreso(100);
+            int progres = MainActivity.Logros.get(1).getProgreso();
+            if(MainActivity.Logros.get(1).getProgreso() >=100){
+            } else {
+                MainActivity.Logros.get(1).setProgreso(progres + 33);
+            }
+            if(MainActivity.Logros.get(0).getProgreso() >= 100 && MainActivity.fet1 == 0) {
+                ActuMonPuntLogros(0);
+                MainActivity.fet1++;
+            }
+            if(MainActivity.Logros.get(1).getProgreso() >= 100 && MainActivity.fet2 == 0) {
+                ActuMonPuntLogros(1);
+                MainActivity.fet2++;
+            }
+            if(MainActivity.Logros.get(2).getProgreso() >= 100 && MainActivity.fet3 == 0) {
+                ActuMonPuntLogros(2);
+                MainActivity.fet3++;
+            }
+            if(MainActivity.Logros.get(3).getProgreso() >= 100 && MainActivity.fet4 == 0) {
+                ActuMonPuntLogros(3);
+                MainActivity.fet4++;
+            }
+            if(MainActivity.Logros.get(4).getProgreso() >= 100 && MainActivity.fet5 == 0) {
+                ActuMonPuntLogros(4);
+                MainActivity.fet5++;
+            }
+            if(MainActivity.Logros.get(5).getProgreso() >= 100 && MainActivity.fet6 == 0) {
+                ActuMonPuntLogros(5);
+                MainActivity.fet6++;
+            }
+
             int leccionActualSum = MainActivity.Temas.get(positionTema).getDificultad().get(positionDificultad).getLecciones().get(0).getLeccionActual() + 1;
             MainActivity.Temas.get(positionTema).getDificultad().get(positionDificultad).getLecciones().get(0).setLeccionActual(leccionActualSum);
             Intent intentAciertos = new Intent();
@@ -204,6 +269,14 @@ public class PreguntaTexto extends AppCompatActivity {
             setResult(RESULT_OK, intentAciertos);
             finish();
         }
+    }
+
+    public void ActuMonPuntLogros(int posLogro) {
+        int plusMonedas = MainActivity.User.get(0).getMonedas();
+        MainActivity.User.get(0).setMonedas(plusMonedas + MainActivity.Logros.get(posLogro).getMonedas());
+
+        int plusPuntos = MainActivity.User.get(0).getPuntos();;
+        MainActivity.User.get(0).setPuntos(plusPuntos + MainActivity.Logros.get(posLogro).getPuntos());
     }
 
     public void randomButton() {

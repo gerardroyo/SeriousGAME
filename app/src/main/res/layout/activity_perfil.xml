@@ -55,6 +55,13 @@
         app:layout_constraintGuide_percent="0.29" />
 
     <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline75"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.82" />
+
+    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline41"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -66,7 +73,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.345" />
+        app:layout_constraintGuide_percent="0.344" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline29"
@@ -222,6 +229,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline7" />
 
+
     <LinearLayout
         android:id="@+id/activity_albaranes"
         android:layout_width="0dp"
@@ -286,6 +294,7 @@
         android:layout_height="0dp"
         android:gravity="center"
         android:text="LOGROS"
+        android:textColor="@color/blue"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline41"
         app:layout_constraintEnd_toStartOf="@+id/guideline42"
@@ -305,5 +314,26 @@
         app:layout_constraintStart_toEndOf="@+id/tvLogros"
         app:layout_constraintTop_toTopOf="@+id/guideline35"
         app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tvColor1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/blue"
+        app:layout_constraintBottom_toTopOf="@+id/guideline33"
+        app:layout_constraintEnd_toStartOf="@+id/guideline42"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline41" />
+
+    <TextView
+        android:id="@+id/tvColor2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/guideline33"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline42"
+        app:layout_constraintTop_toTopOf="@+id/guideline41" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

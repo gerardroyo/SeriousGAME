@@ -15,5 +15,6 @@
     <color name="red">#CCFF0000</color>
     <color name="yellow">#CCF7DD00</color>
     <color name="green">#CC05FF00</color>
-    <color name="blue">#CC04D8FE</color>
+    <color name="blue">#0CB7F2</color>
+    <color name="gold">#F0B829</color>
 </resources>

@@ -29,6 +29,8 @@ public class Tema extends AppCompatActivity {
     private int destino;
     private int origenEnv = 1;
     private int positionTema;
+    private int logro2;
+    private int progres;
     //public static int positionTOP;
 
     private ArrayList<cUser> Users = new ArrayList<cUser>();
@@ -38,6 +40,8 @@ public class Tema extends AppCompatActivity {
 
 
         if (requestCode == 12346 && resultCode == RESULT_OK) {
+            finish();
+            startActivity(getIntent());
 
             AdaptadorTema adaptador = new AdaptadorTema(this, MainActivity.Temas.get(positionTema).getDificultad());
 
@@ -58,8 +62,12 @@ public class Tema extends AppCompatActivity {
         }
 
         if (requestCode == 1234 && resultCode == RESULT_OK) {
+            finish();
+            startActivity(getIntent());
         }
         if (requestCode == 12345 && resultCode == RESULT_OK) {
+            finish();
+            startActivity(getIntent());
         }
     }
 
@@ -94,7 +102,6 @@ public class Tema extends AppCompatActivity {
             public void onClick(View v) {
                 finish();
             }
-
         });
 
         img = findViewById(R.id.imgPerfil);
@@ -156,6 +163,30 @@ public class Tema extends AppCompatActivity {
 
                 if(dificultad.getLecciones().get(0).getLeccionActual() >= dificultad.getLecciones().get(0).getLeccionMax()) {
                     tvTema.setText(dificultad.getNombre() + ": COMPLETADO");
+
+                    MainActivity.Logros.get(1).setProgreso(100);
+                    if(MainActivity.Logros.get(3).getProgreso() != 100) {
+                        MainActivity.dif1++;
+                        int progres4 = MainActivity.Logros.get(3).getProgreso();
+                        if(MainActivity.dif1 <= 2) {
+                            MainActivity.Logros.get(3).setProgreso(progres4 + 33);
+                        }
+
+                    } else {
+
+                        MainActivity.Logros.get(3).setProgreso(100);
+                    }
+
+                    if (dificultad.getId() == 3) {
+                        MainActivity.Logros.get(3).setProgreso(100);
+                        int progres6 = MainActivity.Logros.get(5).getProgreso();
+                        MainActivity.Logros.get(5).setProgreso(progres6 + 33);
+                        MainActivity.logro6++;
+                        if(MainActivity.logro6 >= 3) {
+                            MainActivity.Logros.get(5).setProgreso(100);
+                        }
+                    }
+
                     if(dificultad.getId() == positionDificultad || dificultad.getId() == 3) {
                     } else {
                         MainActivity.Temas.get(positionTema).getDificultad().get(positionDificultad + 1).setBloqueado(false);
@@ -175,6 +206,7 @@ public class Tema extends AppCompatActivity {
                 TextView tvTema = (TextView) item.findViewById(R.id.tvDificultad);
                 tvTema.setText(dificultad.getNombre() + ": BLOQUEADO");
             }
+
 
             item.setOnClickListener(new View.OnClickListener() {
                 @Override
