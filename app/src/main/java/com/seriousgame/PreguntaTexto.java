@@ -3,8 +3,10 @@ package com.seriousgame;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -103,6 +106,8 @@ public class PreguntaTexto extends AppCompatActivity {
             }
         });
 
+        guardarDatos();
+
     }
 
     @Override
@@ -168,16 +173,14 @@ public class PreguntaTexto extends AppCompatActivity {
 
             View parentLayout = findViewById(android.R.id.content);
             SnackBar.snackBarError(parentLayout, resultadoString);
-            if(fallos == 2) {
+            if(fallos == 3) {
                 Intent intentFallos2 = new Intent();
                 intentFallos2.putExtra("fallos", fallos);
                 intentFallos2.putExtra("aciertos", aciertos);
                 setResult(RESULT_OK, intentFallos2);
                 finish();
             }
-
             cargarLayout();
-
         }
 
     }
@@ -191,23 +194,73 @@ public class PreguntaTexto extends AppCompatActivity {
         int plusMonedas = MainActivity.User.get(0).getMonedas();
         MainActivity.User.get(0).setMonedas(plusMonedas + 15);
 
-        int plusPuntos = MainActivity.User.get(0).getPuntos();;
-        MainActivity.User.get(0).setPuntos(plusPuntos + 15);
+
+        switch(MainActivity.Temas.get(positionTema).getId()) {
+            case 1:
+                int plusPuntos = MainActivity.Temas.get(0).getPuntos();
+                MainActivity.Temas.get(0).setPuntos(plusPuntos + 15);
+                break;
+            case 2:
+                plusPuntos = MainActivity.Temas.get(1).getPuntos();
+                MainActivity.Temas.get(1).setPuntos(plusPuntos + 15);
+                break;
+            case 3:
+                plusPuntos = MainActivity.Temas.get(2).getPuntos();
+                MainActivity.Temas.get(2).setPuntos(plusPuntos + 15);
+                break;
+            case 4:
+                plusPuntos = MainActivity.Temas.get(3).getPuntos();
+                MainActivity.Temas.get(3).setPuntos(plusPuntos + 15);
+                break;
+        }
+
 
         if(MainActivity.Temas.get(positionTema).getDificultad().get(positionDificultad).getLecciones().get(0).getLeccionActual() == 2) {
             if(MainActivity.Temas.get(positionTema).getDificultad().get(positionDificultad).getId() == 3) {
                 plusMonedas = MainActivity.User.get(0).getMonedas();
                 MainActivity.User.get(0).setMonedas(plusMonedas + 60);
 
-                plusPuntos = MainActivity.User.get(0).getPuntos();;
-                MainActivity.User.get(0).setPuntos(plusPuntos + 60);
+                switch(MainActivity.Temas.get(positionTema).getId()) {
+                    case 1:
+                        int plusPuntos = MainActivity.Temas.get(0).getPuntos();
+                        MainActivity.Temas.get(0).setPuntos(plusPuntos + 60);
+                        break;
+                    case 2:
+                        plusPuntos = MainActivity.Temas.get(1).getPuntos();
+                        MainActivity.Temas.get(1).setPuntos(plusPuntos + 60);
+                        break;
+                    case 3:
+                        plusPuntos = MainActivity.Temas.get(2).getPuntos();
+                        MainActivity.Temas.get(2).setPuntos(plusPuntos + 60);
+                        break;
+                    case 4:
+                        plusPuntos = MainActivity.Temas.get(3).getPuntos();
+                        MainActivity.Temas.get(3).setPuntos(plusPuntos + 60);
+                        break;
+                }
             }
 
             plusMonedas = MainActivity.User.get(0).getMonedas();
             MainActivity.User.get(0).setMonedas(plusMonedas + 30);
 
-            plusPuntos = MainActivity.User.get(0).getPuntos();;
-            MainActivity.User.get(0).setPuntos(plusPuntos + 30);
+            switch(MainActivity.Temas.get(positionTema).getId()) {
+                case 1:
+                    int plusPuntos = MainActivity.Temas.get(0).getPuntos();
+                    MainActivity.Temas.get(0).setPuntos(plusPuntos + 30);
+                    break;
+                case 2:
+                    plusPuntos = MainActivity.Temas.get(1).getPuntos();
+                    MainActivity.Temas.get(1).setPuntos(plusPuntos + 30);
+                    break;
+                case 3:
+                    plusPuntos = MainActivity.Temas.get(2).getPuntos();
+                    MainActivity.Temas.get(2).setPuntos(plusPuntos + 30);
+                    break;
+                case 4:
+                    plusPuntos = MainActivity.Temas.get(3).getPuntos();
+                    MainActivity.Temas.get(3).setPuntos(plusPuntos + 30);
+                    break;
+            }
         }
 
         pb = (ProgressBar) findViewById(R.id.pb);
@@ -229,13 +282,18 @@ public class PreguntaTexto extends AppCompatActivity {
 
         }
 
-        if(aciertos == 1) {
+        if(aciertos == 10) {
             MainActivity.Logros.get(0).setProgreso(100);
             int progres = MainActivity.Logros.get(1).getProgreso();
+
             if(MainActivity.Logros.get(1).getProgreso() >=100){
             } else {
-                MainActivity.Logros.get(1).setProgreso(progres + 33);
+                MainActivity.Logros.get(1).setProgreso(progres + 34);
+                if(MainActivity.Logros.get(1).getProgreso() >=100){
+                    MainActivity.Logros.get(1).setProgreso(100);
+                }
             }
+
             if(MainActivity.Logros.get(0).getProgreso() >= 100 && MainActivity.fet1 == 0) {
                 ActuMonPuntLogros(0);
                 MainActivity.fet1++;
@@ -275,8 +333,24 @@ public class PreguntaTexto extends AppCompatActivity {
         int plusMonedas = MainActivity.User.get(0).getMonedas();
         MainActivity.User.get(0).setMonedas(plusMonedas + MainActivity.Logros.get(posLogro).getMonedas());
 
-        int plusPuntos = MainActivity.User.get(0).getPuntos();;
-        MainActivity.User.get(0).setPuntos(plusPuntos + MainActivity.Logros.get(posLogro).getPuntos());
+        switch(MainActivity.Temas.get(positionTema).getId()) {
+            case 1:
+                int plusPuntos = MainActivity.Temas.get(0).getPuntos();;
+                MainActivity.Temas.get(0).setPuntos(plusPuntos + MainActivity.Logros.get(posLogro).getPuntos());
+                break;
+            case 2:
+                plusPuntos = MainActivity.Temas.get(1).getPuntos();;
+                MainActivity.Temas.get(1).setPuntos(plusPuntos + MainActivity.Logros.get(posLogro).getPuntos());
+                break;
+            case 3:
+                plusPuntos = MainActivity.Temas.get(2).getPuntos();;
+                MainActivity.Temas.get(2).setPuntos(plusPuntos + MainActivity.Logros.get(posLogro).getPuntos());
+                break;
+            case 4:
+                plusPuntos = MainActivity.Temas.get(3).getPuntos();;
+                MainActivity.Temas.get(3).setPuntos(plusPuntos + MainActivity.Logros.get(posLogro).getPuntos());
+                break;
+        }
     }
 
     public void randomButton() {
@@ -322,22 +396,50 @@ public class PreguntaTexto extends AppCompatActivity {
                         break;
                 }
                 break;
+            case "Dividir":
+                switch (dificultad) {
+                    case 1:
+                        numButton = numButton(9, 1);
+                        break;
+                    case 2:
+                        numButton = numButton(99, 11);
+                        break;
+                    case 3:
+                        numButton = numButton(999, 111);
+                        break;
+                }
+                break;
 
         }
-
         resultadoString = Integer.toString(resultado);
         numButton.add(resultadoString);
         numButtonShuffled = numButton;
         Collections.shuffle(numButtonShuffled);
-
     }
 
     public ArrayList<String> numButton(int to, int start) {
         ArrayList<String> numButton = new ArrayList<String>();
+        int comptador = 0;
+        String randomString = "";
+        int random = (int) (Math.random()*to+start);
+        randomString = Integer.toString(random);
+        numButton.add(randomString);
 
-        for(int i = 0; i < 3; i++) {
-            int random = (int) (Math.random()*to+start);
-            String randomString = Integer.toString(random);
+        for(int i = 0; i < 2; i++) {
+            comptador = 0;
+            while(comptador < numButton.size()) {
+                random = (int) (Math.random()*to+start);
+                randomString = Integer.toString(random);
+
+                for(int j = 0; j < numButton.size(); j++) {
+                    if(randomString.equals(numButton.get(j)) || randomString.equals(resultadoString)){
+                    } else {
+                        comptador++;
+                    }
+                }
+            }
+
+
             numButton.add(randomString);
         }
         return numButton;
@@ -345,16 +447,66 @@ public class PreguntaTexto extends AppCompatActivity {
 
     public void numsRandoms() {
 
-        switch(dificultad) {
-            case 1:
-                dificultad(9, 1);
+        if(stema.equals("Dividir")) {
+            switch(dificultad) {
+                case 1:
+                    dificultadDividir(9, 1, 9, 1);
+                    break;
+                case 2:
+                    dificultadDividir(99, 10, 9, 1);
+                    break;
+                case 3:
+                    dificultadDividir(999, 100, 9, 1);
+                    break;
+
+            }
+        } else {
+            switch(dificultad) {
+                case 1:
+                    dificultad(9, 1);
+                    break;
+                case 2:
+                    dificultad(89, 10);
+                    break;
+                case 3:
+                    dificultad(899, 100);
+                    break;
+
+            }
+        }
+    }
+
+    public void dificultadDividir(int to, int start, int to2, int start2) {
+        randTipoPregunta = (int) (Math.random()*2+0);
+
+        rand1Pregunta = (int) (Math.random()*to+start);
+        rand1PreguntaString = Integer.toString(rand1Pregunta);
+        rand2Pregunta = (int) (Math.random()*to2+start2);
+
+        while(rand2Pregunta > rand1Pregunta) {
+            rand2Pregunta = (int) (Math.random()*to2+start2);
+        }
+
+        rand2PreguntaString = Integer.toString(rand2Pregunta);
+
+        switch(stema) {
+            case "Sumar":
+                resultado = rand1Pregunta + rand2Pregunta;
+                resultadoString = Integer.toString(resultado);
                 break;
-            case 2:
-                dificultad(89, 10);
+            case "Restar":
+                resultado = rand1Pregunta - rand2Pregunta;
+                resultadoString = Integer.toString(resultado);
                 break;
-            case 3:
-                dificultad(899, 100);
+            case "Multiplicar":
+                resultado = rand1Pregunta * rand2Pregunta;
+                resultadoString = Integer.toString(resultado);
                 break;
+            case "Dividir":
+                resultado = rand1Pregunta / rand2Pregunta;
+                resultadoString = Integer.toString(resultado);
+                break;
+
         }
     }
 
@@ -363,7 +515,6 @@ public class PreguntaTexto extends AppCompatActivity {
 
         rand1Pregunta = (int) (Math.random()*to+start);
         rand1PreguntaString = Integer.toString(rand1Pregunta);
-
         rand2Pregunta = (int) (Math.random()*to+start);
         rand2PreguntaString = Integer.toString(rand2Pregunta);
 
@@ -378,6 +529,10 @@ public class PreguntaTexto extends AppCompatActivity {
                 break;
             case "Multiplicar":
                 resultado = rand1Pregunta * rand2Pregunta;
+                resultadoString = Integer.toString(resultado);
+                break;
+            case "Dividir":
+                resultado = rand1Pregunta / rand2Pregunta;
                 resultadoString = Integer.toString(resultado);
                 break;
 
@@ -399,6 +554,11 @@ public class PreguntaTexto extends AppCompatActivity {
             case "Multiplicar":
 
                 simbolo(" x ");
+
+                break;
+            case "Dividir":
+
+                simbolo(" ÷ ");
 
                 break;
         }
@@ -498,6 +658,144 @@ public class PreguntaTexto extends AppCompatActivity {
                 }
             });
         }
+    }
+    private void guardarDatos() {
+
+        SharedPreferences preferencias = getSharedPreferences("game", Context.MODE_PRIVATE);
+//----------------------------------------------> Leccion Actual <----------------------------------------------\\
+        int lecAcSumFacil = MainActivity.Temas.get(0).getDificultad().get(0).getLecciones().get(0).getLeccionActual();
+        int lecAcSumNormal = MainActivity.Temas.get(0).getDificultad().get(1).getLecciones().get(0).getLeccionActual();
+        int lecAcSumDificil = MainActivity.Temas.get(0).getDificultad().get(2).getLecciones().get(0).getLeccionActual();
+
+        int lecAcResFacil = MainActivity.Temas.get(1).getDificultad().get(0).getLecciones().get(0).getLeccionActual();
+        int lecAcResNormal = MainActivity.Temas.get(1).getDificultad().get(1).getLecciones().get(0).getLeccionActual();
+        int lecAcResDificil = MainActivity.Temas.get(1).getDificultad().get(2).getLecciones().get(0).getLeccionActual();
+
+        int lecAcMultFacil = MainActivity.Temas.get(2).getDificultad().get(0).getLecciones().get(0).getLeccionActual();
+        int lecAcMultNormal = MainActivity.Temas.get(2).getDificultad().get(1).getLecciones().get(0).getLeccionActual();
+        int lecAcMultDificil = MainActivity.Temas.get(2).getDificultad().get(2).getLecciones().get(0).getLeccionActual();
+
+        int lecAcDivFacil = MainActivity.Temas.get(3).getDificultad().get(0).getLecciones().get(0).getLeccionActual();
+        int lecAcDivNormal = MainActivity.Temas.get(3).getDificultad().get(1).getLecciones().get(0).getLeccionActual();
+        int lecAcDivDificil = MainActivity.Temas.get(3).getDificultad().get(2).getLecciones().get(0).getLeccionActual();
+//----------------------------------------------------------------------------------------------------------------\\
+//----------------------------------------------> Dificultad Bloqueado <----------------------------------------------\\
+        boolean difBloquSumFacil = MainActivity.Temas.get(0).getDificultad().get(0).getBloqueado();
+        boolean difBloquSumNormal = MainActivity.Temas.get(0).getDificultad().get(1).getBloqueado();
+        boolean difBloquSumDificil = MainActivity.Temas.get(0).getDificultad().get(2).getBloqueado();
+
+        boolean difBloquResFacil = MainActivity.Temas.get(1).getDificultad().get(0).getBloqueado();
+        boolean difBloquResNormal = MainActivity.Temas.get(1).getDificultad().get(1).getBloqueado();
+        boolean difBloquResDificil = MainActivity.Temas.get(1).getDificultad().get(2).getBloqueado();
+
+        boolean difBloquMultFacil = MainActivity.Temas.get(2).getDificultad().get(0).getBloqueado();
+        boolean difBloquMultNormal = MainActivity.Temas.get(2).getDificultad().get(1).getBloqueado();
+        boolean difBloquMultDificil = MainActivity.Temas.get(2).getDificultad().get(2).getBloqueado();
+
+        boolean difBloquDivFacil = MainActivity.Temas.get(3).getDificultad().get(0).getBloqueado();
+        boolean difBloquDivNormal = MainActivity.Temas.get(3).getDificultad().get(1).getBloqueado();
+        boolean difBloquDivDificil = MainActivity.Temas.get(3).getDificultad().get(2).getBloqueado();
+//--------------------------------------------------------------------------------------------------------------------\\
+//----------------------------------------------> Nombre/Monedas Usuario <----------------------------------------------\\
+        String usuarioNombre = MainActivity.User.get(0).getNombre();
+        int usuarioMonedas = MainActivity.User.get(0).getMonedas();
+//----------------------------------------------------------------------------------------------------------------------\\
+//----------------------------------------------> Logros Progreso <----------------------------------------------\\
+        int logro1Progres = MainActivity.Logros.get(0).getProgreso();
+        int logro2Progres = MainActivity.Logros.get(1).getProgreso();
+        int logro3Progres = MainActivity.Logros.get(2).getProgreso();
+        int logro4Progres = MainActivity.Logros.get(3).getProgreso();
+        int logro5Progres = MainActivity.Logros.get(4).getProgreso();
+        int logro6Progres = MainActivity.Logros.get(5).getProgreso();
+//---------------------------------------------------------------------------------------------------------------\\
+//----------------------------------------------> Tienda Comprado <----------------------------------------------\\
+        boolean tiendaComprado1 = MainActivity.Tienda.get(0).getComprado();
+        boolean tiendaComprado2 = MainActivity.Tienda.get(1).getComprado();
+        boolean tiendaComprado3 = MainActivity.Tienda.get(2).getComprado();
+        boolean tiendaComprado4 = MainActivity.Tienda.get(3).getComprado();
+        boolean tiendaComprado5 = MainActivity.Tienda.get(4).getComprado();
+        boolean tiendaComprado6 = MainActivity.Tienda.get(5).getComprado();
+//---------------------------------------------------------------------------------------------------------------------\\
+//----------------------------------------------> Tienda Equipado <----------------------------------------------\\
+        boolean tiendaEquipado1 = MainActivity.Tienda.get(0).getEquipado();
+        boolean tiendaEquipado2 = MainActivity.Tienda.get(1).getEquipado();
+        boolean tiendaEquipado3 = MainActivity.Tienda.get(2).getEquipado();
+        boolean tiendaEquipado4 = MainActivity.Tienda.get(3).getEquipado();
+        boolean tiendaEquipado5 = MainActivity.Tienda.get(4).getEquipado();
+        boolean tiendaEquipado6 = MainActivity.Tienda.get(5).getEquipado();
+//---------------------------------------------------------------------------------------------------------------------\\
+//---------------------------------------------------------------------------------------------------------------------\\
+//---------------------------------------------------------------------------------------------------------------------\\
+//---------------------------------------------------------------------------------------------------------------------\\
+//---------------------------------------------------------------------------------------------------------------------\\
+        SharedPreferences.Editor editor = preferencias.edit();
+//---------------------------------------------------------------------------------------------------------------------\\
+//---------------------------------------------------------------------------------------------------------------------\\
+//----------------------------------------------> Leccion Actual <----------------------------------------------\\
+        editor.putInt("lecAcSumFacil", lecAcSumFacil);
+        editor.putInt("lecAcSumNormal", lecAcSumNormal);
+        editor.putInt("lecAcSumDificil", lecAcSumDificil);
+
+        editor.putInt("lecAcResFacil", lecAcResFacil);
+        editor.putInt("lecAcResNormal", lecAcResNormal);
+        editor.putInt("lecAcResDificil", lecAcResDificil);
+
+        editor.putInt("lecAcMultFacil", lecAcMultFacil);
+        editor.putInt("lecAcMultNormal", lecAcMultNormal);
+        editor.putInt("lecAcMultDificil", lecAcMultDificil);
+
+        editor.putInt("lecAcDivFacil", lecAcDivFacil);
+        editor.putInt("lecAcDivNormal", lecAcDivNormal);
+        editor.putInt("lecAcDivDificil", lecAcDivDificil);
+//----------------------------------------------------------------------------------------------------------------\\
+//----------------------------------------------> Dificultad Bloqueado <----------------------------------------------\\
+        editor.putBoolean("difBloquSumFacil", difBloquSumFacil);
+        editor.putBoolean("difBloquSumNormal", difBloquSumNormal);
+        editor.putBoolean("difBloquSumDificil", difBloquSumDificil);
+
+        editor.putBoolean("difBloquResFacil", difBloquResFacil);
+        editor.putBoolean("difBloquResNormal", difBloquResNormal);
+        editor.putBoolean("difBloquResDificil", difBloquResDificil);
+
+        editor.putBoolean("difBloquMultFacil", difBloquMultFacil);
+        editor.putBoolean("difBloquMultNormal", difBloquMultNormal);
+        editor.putBoolean("difBloquMultDificil", difBloquMultDificil);
+
+        editor.putBoolean("difBloquDivFacil", difBloquDivFacil);
+        editor.putBoolean("difBloquDivNormal", difBloquDivNormal);
+        editor.putBoolean("difBloquDivDificil", difBloquDivDificil);
+//--------------------------------------------------------------------------------------------------------------------\\
+//----------------------------------------------> Nombre/Monedas Usuario <----------------------------------------------\\
+        editor.putString("usuarioNombre", usuarioNombre);
+        editor.putInt("usuarioMonedas", usuarioMonedas);
+//----------------------------------------------------------------------------------------------------------------------\\
+//----------------------------------------------> Logros Progreso <----------------------------------------------\\
+        editor.putInt("logro1Progres", logro1Progres);
+        editor.putInt("logro2Progres", logro2Progres);
+        editor.putInt("logro3Progres", logro3Progres);
+        editor.putInt("logro4Progres", logro4Progres);
+        editor.putInt("logro5Progres", logro5Progres);
+        editor.putInt("logro6Progres", logro6Progres);
+//---------------------------------------------------------------------------------------------------------------\\
+//----------------------------------------------> Tienda Comprado <----------------------------------------------\\
+        editor.putBoolean("tiendaComprado1", tiendaComprado1);
+        editor.putBoolean("tiendaComprado2", tiendaComprado2);
+        editor.putBoolean("tiendaComprado3", tiendaComprado3);
+        editor.putBoolean("tiendaComprado4", tiendaComprado4);
+        editor.putBoolean("tiendaComprado5", tiendaComprado5);
+        editor.putBoolean("tiendaComprado6", tiendaComprado6);
+//---------------------------------------------------------------------------------------------------------------\\
+//----------------------------------------------> Tienda Equipado <----------------------------------------------\\
+        editor.putBoolean("tiendaEquipado1", tiendaEquipado1);
+        editor.putBoolean("tiendaEquipado2", tiendaEquipado2);
+        editor.putBoolean("tiendaEquipado3", tiendaEquipado3);
+        editor.putBoolean("tiendaEquipado4", tiendaEquipado4);
+        editor.putBoolean("tiendaEquipado5", tiendaEquipado5);
+        editor.putBoolean("tiendaEquipado6", tiendaEquipado6);
+//---------------------------------------------------------------------------------------------------------------\\
+
+        editor.commit();
+
     }
 
 }

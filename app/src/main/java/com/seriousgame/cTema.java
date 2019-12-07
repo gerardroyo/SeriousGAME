@@ -7,6 +7,7 @@ public class cTema implements Serializable {
 
     private int id;
     private String nombre;
+    private int puntos = 0;
     private ArrayList<cDificultad> dificultad = new ArrayList<cDificultad>();
 
     public cTema(int sId, String sNombre) {
@@ -25,6 +26,10 @@ public class cTema implements Serializable {
     public String getNombre() { return nombre; }
 
     public void setNombre(String nombre) { this.nombre = nombre; }
+
+    public int getPuntos() { return puntos; }
+
+    public void setPuntos(int puntos) { this.puntos = puntos; }
 
     public ArrayList<cDificultad> getDificultad() { return dificultad; }
 

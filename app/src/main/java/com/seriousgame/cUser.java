@@ -7,7 +7,7 @@ public class cUser implements Serializable {
     private String nombre;
     private String foto;
     private int monedas = 10000;
-    private int puntos = 0;
+
 
     public cUser(String sNombre, String sFoto) {
 
@@ -26,8 +26,4 @@ public class cUser implements Serializable {
     public int getMonedas() { return monedas; }
 
     public void setMonedas(int monedas) { this.monedas = monedas; }
-
-    public int getPuntos() { return puntos; }
-
-    public void setPuntos(int puntos) { this.puntos = puntos; }
 }
