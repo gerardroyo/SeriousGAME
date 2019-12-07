@@ -166,15 +166,14 @@ public class Tema extends AppCompatActivity {
 
                 if(dificultad.getLecciones().get(0).getLeccionActual() >= dificultad.getLecciones().get(0).getLeccionMax()) {
                     tvTema.setText(dificultad.getNombre() + ": COMPLETADO");
-
+                    MainActivity.Temas.get(positionTema).getDificultad().get(positionDificultad).setCompletado(true);
+                    int progres4 = MainActivity.Logros.get(3).getProgreso();
                     MainActivity.Logros.get(1).setProgreso(100);
                     if(MainActivity.Logros.get(3).getProgreso() != 100) {
-                        MainActivity.dif1++;
-                        int progres4 = MainActivity.Logros.get(3).getProgreso();
-                        if(MainActivity.dif1 <= 2) {
+                        if( MainActivity.Temas.get(positionTema).getDificultad().get(positionDificultad).getCompletado() == true && MainActivity.Temas.get(positionTema).getDificultad().get(positionDificultad).getComplet1() == 0) {
                             MainActivity.Logros.get(3).setProgreso(progres4 + 33);
+                            MainActivity.Temas.get(positionTema).getDificultad().get(positionDificultad).setComplet1(1);
                         }
-
                     } else {
 
                         MainActivity.Logros.get(3).setProgreso(100);

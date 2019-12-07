@@ -14,9 +14,9 @@ public class cTema implements Serializable {
 
         id = sId;
         nombre = sNombre;
-        dificultad.add(new cDificultad(1, "Fácil", "lvlfacilcolor", "lvlfacilgris", false,1, 0, 3));
-        dificultad.add(new cDificultad(2, "Normal", "lvlnormalcolor", "lvlnormalgris", true,2, 0, 3));
-        dificultad.add(new cDificultad(3, "Difícil", "lvldificilcolor", "lvldificilgris", true,3, 0, 3));
+        dificultad.add(new cDificultad(1, "Fácil", "lvlfacilcolor", "lvlfacilgris", false,1, 0, 3, false));
+        dificultad.add(new cDificultad(2, "Normal", "lvlnormalcolor", "lvlnormalgris", true,2, 0, 3, false));
+        dificultad.add(new cDificultad(3, "Difícil", "lvldificilcolor", "lvldificilgris", true,3, 0, 3, false));
     }
 
     public int getId() { return id; }

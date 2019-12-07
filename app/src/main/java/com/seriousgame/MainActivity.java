@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
     public static int logro6 = 0;
     public static int dif1 = 0;
+    public static int dif2 = 0;
+    public static int dif3 = 0;
     public static int fet1 = 0;
     public static int fet2 = 0;
     public static int fet3 = 0;

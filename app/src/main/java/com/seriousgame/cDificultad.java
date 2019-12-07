@@ -10,16 +10,19 @@ public class cDificultad implements Serializable {
     private String imgColor;
     private String imgBN;
     private boolean bloqueado;
+    private boolean completado;
+    private int complet1 = 0;
     private ArrayList<cLecciones> leccion = new ArrayList<cLecciones>();
 
 
-    public cDificultad(int sId, String sNombre, String sImgColor, String sImgBN, boolean sBloqueado, int sIdLeccion, int sLeccionActual, int sLeccionMax) {
+    public cDificultad(int sId, String sNombre, String sImgColor, String sImgBN, boolean sBloqueado, int sIdLeccion, int sLeccionActual, int sLeccionMax, boolean sCompletado) {
         id = sId;
         nombre = sNombre;
         imgColor = sImgColor;
         imgBN = sImgBN;
         bloqueado = sBloqueado;
         leccion.add(new cLecciones(sIdLeccion, sLeccionActual, sLeccionMax));
+        completado = sCompletado;
     }
 
     public int getId() { return id; }
@@ -41,6 +44,14 @@ public class cDificultad implements Serializable {
     public boolean getBloqueado() { return bloqueado; }
 
     public void setBloqueado(boolean bloqueado) { this.bloqueado = bloqueado; }
+
+    public boolean getCompletado() { return completado; }
+
+    public void setCompletado(boolean completado) { this.completado = completado; }
+
+    public int getComplet1() { return complet1; }
+
+    public void setComplet1(int complet1) { this.complet1 = complet1; }
 
     public ArrayList<cLecciones> getLecciones() { return leccion; }
 
