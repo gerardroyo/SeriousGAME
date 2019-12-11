@@ -178,7 +178,7 @@ public class Tienda extends AppCompatActivity {
                             MainActivity.User.get(0).setMonedas(MainActivity.User.get(0).getMonedas() - imgperfil.getPrecio());
                             MainActivity.FotosComprado.add(imgperfil);
                             finish();
-                            startActivity(getIntent());
+                            startActivityForResult(getIntent(), 12345);
                         } else {
                             View parentLayout = findViewById(android.R.id.content);
                             SnackBar.snackBarErrorCompra(parentLayout);

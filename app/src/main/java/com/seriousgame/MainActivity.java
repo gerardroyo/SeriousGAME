@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
 //--------------------------------------------------------------------------------------------------------------------\\
 //----------------------------------------------> Nombre/Monedas Usuario <----------------------------------------------\\
         String usuarioNombre = preferencias.getString("usuarioNombre", "Sin nombre");
-        int usuarioMonedas = preferencias.getInt("usuarioMonedas", 0);
+        int usuarioMonedas = preferencias.getInt("usuarioMonedas", 10000);
 //----------------------------------------------------------------------------------------------------------------------\\
 //----------------------------------------------> Logros Progreso <----------------------------------------------\\
         int logro1Progres = preferencias.getInt("logro1Progres", 0);
