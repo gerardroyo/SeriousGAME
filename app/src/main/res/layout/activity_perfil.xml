@@ -139,13 +139,6 @@
         app:layout_constraintGuide_percent="0.98" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline102"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.87" />
-
-    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -167,13 +160,6 @@
         app:layout_constraintGuide_percent="0.666" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline23"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.47" />
-
-    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline42"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -188,11 +174,11 @@
         app:layout_constraintGuide_percent="0.75" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline91"
+        android:id="@+id/guideline23"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.73" />
+        app:layout_constraintGuide_percent="0.9" />
 
     <ImageView
         android:id="@+id/imgInicio"
@@ -342,5 +328,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline42"
         app:layout_constraintTop_toTopOf="@+id/guideline41" />
+
+    <ImageView
+        android:id="@+id/imReset"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline36"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="@+id/guideline23"
+        app:layout_constraintTop_toTopOf="@+id/guideline14"
+        app:srcCompat="@drawable/reset" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

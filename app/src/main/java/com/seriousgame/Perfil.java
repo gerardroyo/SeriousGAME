@@ -47,6 +47,15 @@ public class Perfil extends AppCompatActivity {
             if(destino != 2) {
                 finish();
             }
+            if(destino == 3) {
+                Intent intent = new Intent(Perfil.this, Tienda.class);
+
+                destino = 3;
+                intent.putExtra("destino", destino);
+                intent.putExtra("origen", origenEnv);
+
+                startActivityForResult(intent, 12345);
+            }
         }
         if (requestCode == 12347 && resultCode == RESULT_OK) {
             finish();
@@ -91,6 +100,37 @@ public class Perfil extends AppCompatActivity {
                 Intent intent = new Intent(Perfil.this, CambiarFoto.class);
 
                 startActivityForResult(intent, 12347);
+
+            }
+
+        });
+
+        img = findViewById(R.id.imReset);
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog ad;
+                ad = new AlertDialog.Builder(Perfil.this).create();
+                ad.setTitle("¿Estas seguro?");
+                ad.setMessage("Se borrará todo el proceso y empezarás de nuevo.");
+
+                ad.setButton(AlertDialog.BUTTON_POSITIVE,"SI", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        resetDatos();
+
+                        Intent i = getBaseContext().getPackageManager().getLaunchIntentForPackage( getBaseContext().getPackageName() );
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(i);
+                    }
+                });
+
+                ad.setButton(AlertDialog.BUTTON_NEGATIVE, "NO", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        // no fem res.
+                    }
+                });
+                ad.show();
+
             }
 
         });
@@ -356,6 +396,145 @@ public class Perfil extends AppCompatActivity {
         boolean tiendaEquipado4 = MainActivity.Tienda.get(3).getEquipado();
         boolean tiendaEquipado5 = MainActivity.Tienda.get(4).getEquipado();
         boolean tiendaEquipado6 = MainActivity.Tienda.get(5).getEquipado();
+//---------------------------------------------------------------------------------------------------------------------\\
+//---------------------------------------------------------------------------------------------------------------------\\
+//---------------------------------------------------------------------------------------------------------------------\\
+//---------------------------------------------------------------------------------------------------------------------\\
+//---------------------------------------------------------------------------------------------------------------------\\
+        SharedPreferences.Editor editor = preferencias.edit();
+//---------------------------------------------------------------------------------------------------------------------\\
+//---------------------------------------------------------------------------------------------------------------------\\
+//----------------------------------------------> Leccion Actual <----------------------------------------------\\
+        editor.putInt("lecAcSumFacil", lecAcSumFacil);
+        editor.putInt("lecAcSumNormal", lecAcSumNormal);
+        editor.putInt("lecAcSumDificil", lecAcSumDificil);
+
+        editor.putInt("lecAcResFacil", lecAcResFacil);
+        editor.putInt("lecAcResNormal", lecAcResNormal);
+        editor.putInt("lecAcResDificil", lecAcResDificil);
+
+        editor.putInt("lecAcMultFacil", lecAcMultFacil);
+        editor.putInt("lecAcMultNormal", lecAcMultNormal);
+        editor.putInt("lecAcMultDificil", lecAcMultDificil);
+
+        editor.putInt("lecAcDivFacil", lecAcDivFacil);
+        editor.putInt("lecAcDivNormal", lecAcDivNormal);
+        editor.putInt("lecAcDivDificil", lecAcDivDificil);
+//----------------------------------------------------------------------------------------------------------------\\
+//----------------------------------------------> Dificultad Bloqueado <----------------------------------------------\\
+        editor.putBoolean("difBloquSumFacil", difBloquSumFacil);
+        editor.putBoolean("difBloquSumNormal", difBloquSumNormal);
+        editor.putBoolean("difBloquSumDificil", difBloquSumDificil);
+
+        editor.putBoolean("difBloquResFacil", difBloquResFacil);
+        editor.putBoolean("difBloquResNormal", difBloquResNormal);
+        editor.putBoolean("difBloquResDificil", difBloquResDificil);
+
+        editor.putBoolean("difBloquMultFacil", difBloquMultFacil);
+        editor.putBoolean("difBloquMultNormal", difBloquMultNormal);
+        editor.putBoolean("difBloquMultDificil", difBloquMultDificil);
+
+        editor.putBoolean("difBloquDivFacil", difBloquDivFacil);
+        editor.putBoolean("difBloquDivNormal", difBloquDivNormal);
+        editor.putBoolean("difBloquDivDificil", difBloquDivDificil);
+//--------------------------------------------------------------------------------------------------------------------\\
+//----------------------------------------------> Nombre/Monedas Usuario <----------------------------------------------\\
+        editor.putString("usuarioNombre", usuarioNombre);
+        editor.putInt("usuarioMonedas", usuarioMonedas);
+//----------------------------------------------------------------------------------------------------------------------\\
+//----------------------------------------------> Logros Progreso <----------------------------------------------\\
+        editor.putInt("logro1Progres", logro1Progres);
+        editor.putInt("logro2Progres", logro2Progres);
+        editor.putInt("logro3Progres", logro3Progres);
+        editor.putInt("logro4Progres", logro4Progres);
+        editor.putInt("logro5Progres", logro5Progres);
+        editor.putInt("logro6Progres", logro6Progres);
+//---------------------------------------------------------------------------------------------------------------\\
+//----------------------------------------------> Tienda Comprado <----------------------------------------------\\
+        editor.putBoolean("tiendaComprado1", tiendaComprado1);
+        editor.putBoolean("tiendaComprado2", tiendaComprado2);
+        editor.putBoolean("tiendaComprado3", tiendaComprado3);
+        editor.putBoolean("tiendaComprado4", tiendaComprado4);
+        editor.putBoolean("tiendaComprado5", tiendaComprado5);
+        editor.putBoolean("tiendaComprado6", tiendaComprado6);
+//---------------------------------------------------------------------------------------------------------------\\
+//----------------------------------------------> Tienda Equipado <----------------------------------------------\\
+        editor.putBoolean("tiendaEquipado1", tiendaEquipado1);
+        editor.putBoolean("tiendaEquipado2", tiendaEquipado2);
+        editor.putBoolean("tiendaEquipado3", tiendaEquipado3);
+        editor.putBoolean("tiendaEquipado4", tiendaEquipado4);
+        editor.putBoolean("tiendaEquipado5", tiendaEquipado5);
+        editor.putBoolean("tiendaEquipado6", tiendaEquipado6);
+//---------------------------------------------------------------------------------------------------------------\\
+
+        editor.commit();
+
+    }
+
+    private void resetDatos() {
+
+        SharedPreferences preferencias = getSharedPreferences("game", Context.MODE_PRIVATE);
+//----------------------------------------------> Leccion Actual <----------------------------------------------\\
+        int lecAcSumFacil = 0;
+        int lecAcSumNormal = 0;
+        int lecAcSumDificil = 0;
+
+        int lecAcResFacil = 0;
+        int lecAcResNormal = 0;
+        int lecAcResDificil = 0;
+
+        int lecAcMultFacil = 0;
+        int lecAcMultNormal = 0;
+        int lecAcMultDificil = 0;
+
+        int lecAcDivFacil = 0;
+        int lecAcDivNormal = 0;
+        int lecAcDivDificil = 0;
+//----------------------------------------------------------------------------------------------------------------\\
+//----------------------------------------------> Dificultad Bloqueado <----------------------------------------------\\
+        boolean difBloquSumFacil = false;
+        boolean difBloquSumNormal = true;
+        boolean difBloquSumDificil = true;
+
+        boolean difBloquResFacil = false;
+        boolean difBloquResNormal = true;
+        boolean difBloquResDificil = true;
+
+        boolean difBloquMultFacil = false;
+        boolean difBloquMultNormal = true;
+        boolean difBloquMultDificil = true;
+
+        boolean difBloquDivFacil = false;
+        boolean difBloquDivNormal = true;
+        boolean difBloquDivDificil = true;
+//--------------------------------------------------------------------------------------------------------------------\\
+//----------------------------------------------> Nombre/Monedas Usuario <----------------------------------------------\\
+        String usuarioNombre = "Sin nombre";
+        int usuarioMonedas = 10000;
+//----------------------------------------------------------------------------------------------------------------------\\
+//----------------------------------------------> Logros Progreso <----------------------------------------------\\
+        int logro1Progres = 0;
+        int logro2Progres = 0;
+        int logro3Progres = 0;
+        int logro4Progres = 0;
+        int logro5Progres = 0;
+        int logro6Progres = 0;
+//---------------------------------------------------------------------------------------------------------------\\
+//----------------------------------------------> Tienda Comprado <----------------------------------------------\\
+        boolean tiendaComprado1 = true;
+        boolean tiendaComprado2 = false;
+        boolean tiendaComprado3 = false;
+        boolean tiendaComprado4 = false;
+        boolean tiendaComprado5 = false;
+        boolean tiendaComprado6 = false;
+//---------------------------------------------------------------------------------------------------------------------\\
+//----------------------------------------------> Tienda Equipado <----------------------------------------------\\
+        boolean tiendaEquipado1 = true;
+        boolean tiendaEquipado2 = false;
+        boolean tiendaEquipado3 = false;
+        boolean tiendaEquipado4 = false;
+        boolean tiendaEquipado5 = false;
+        boolean tiendaEquipado6 = false;
 //---------------------------------------------------------------------------------------------------------------------\\
 //---------------------------------------------------------------------------------------------------------------------\\
 //---------------------------------------------------------------------------------------------------------------------\\
