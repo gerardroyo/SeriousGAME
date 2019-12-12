@@ -155,8 +155,9 @@ public class PreguntaTexto extends AppCompatActivity {
         edt = (EditText) findViewById(R.id.editText);
         if(resultadoString.equals(edt.getText().toString())) {
             correcto();
-            cargarLayout();
-
+            if(aciertos < 10) {
+                cargarLayout();
+            }
         } else if(numOke.equals(resultadoString)) {
             correcto();
             cargarLayout();
@@ -192,25 +193,25 @@ public class PreguntaTexto extends AppCompatActivity {
         aciertos++;
 
         int plusMonedas = MainActivity.User.get(0).getMonedas();
-        MainActivity.User.get(0).setMonedas(plusMonedas + 15);
+        MainActivity.User.get(0).setMonedas(plusMonedas + 5);
 
 
         switch(MainActivity.Temas.get(positionTema).getId()) {
             case 1:
                 int plusPuntos = MainActivity.Temas.get(0).getPuntos();
-                MainActivity.Temas.get(0).setPuntos(plusPuntos + 15);
+                MainActivity.Temas.get(0).setPuntos(plusPuntos + 5);
                 break;
             case 2:
                 plusPuntos = MainActivity.Temas.get(1).getPuntos();
-                MainActivity.Temas.get(1).setPuntos(plusPuntos + 15);
+                MainActivity.Temas.get(1).setPuntos(plusPuntos + 5);
                 break;
             case 3:
                 plusPuntos = MainActivity.Temas.get(2).getPuntos();
-                MainActivity.Temas.get(2).setPuntos(plusPuntos + 15);
+                MainActivity.Temas.get(2).setPuntos(plusPuntos + 5);
                 break;
             case 4:
                 plusPuntos = MainActivity.Temas.get(3).getPuntos();
-                MainActivity.Temas.get(3).setPuntos(plusPuntos + 15);
+                MainActivity.Temas.get(3).setPuntos(plusPuntos + 5);
                 break;
         }
 
@@ -218,47 +219,47 @@ public class PreguntaTexto extends AppCompatActivity {
         if(MainActivity.Temas.get(positionTema).getDificultad().get(positionDificultad).getLecciones().get(0).getLeccionActual() == 2) {
             if(MainActivity.Temas.get(positionTema).getDificultad().get(positionDificultad).getId() == 3) {
                 plusMonedas = MainActivity.User.get(0).getMonedas();
-                MainActivity.User.get(0).setMonedas(plusMonedas + 60);
+                MainActivity.User.get(0).setMonedas(plusMonedas + 30);
 
                 switch(MainActivity.Temas.get(positionTema).getId()) {
                     case 1:
                         int plusPuntos = MainActivity.Temas.get(0).getPuntos();
-                        MainActivity.Temas.get(0).setPuntos(plusPuntos + 60);
+                        MainActivity.Temas.get(0).setPuntos(plusPuntos + 30);
                         break;
                     case 2:
                         plusPuntos = MainActivity.Temas.get(1).getPuntos();
-                        MainActivity.Temas.get(1).setPuntos(plusPuntos + 60);
+                        MainActivity.Temas.get(1).setPuntos(plusPuntos + 30);
                         break;
                     case 3:
                         plusPuntos = MainActivity.Temas.get(2).getPuntos();
-                        MainActivity.Temas.get(2).setPuntos(plusPuntos + 60);
+                        MainActivity.Temas.get(2).setPuntos(plusPuntos + 30);
                         break;
                     case 4:
                         plusPuntos = MainActivity.Temas.get(3).getPuntos();
-                        MainActivity.Temas.get(3).setPuntos(plusPuntos + 60);
+                        MainActivity.Temas.get(3).setPuntos(plusPuntos + 30);
                         break;
                 }
             }
 
             plusMonedas = MainActivity.User.get(0).getMonedas();
-            MainActivity.User.get(0).setMonedas(plusMonedas + 30);
+            MainActivity.User.get(0).setMonedas(plusMonedas + 15);
 
             switch(MainActivity.Temas.get(positionTema).getId()) {
                 case 1:
                     int plusPuntos = MainActivity.Temas.get(0).getPuntos();
-                    MainActivity.Temas.get(0).setPuntos(plusPuntos + 30);
+                    MainActivity.Temas.get(0).setPuntos(plusPuntos + 15);
                     break;
                 case 2:
                     plusPuntos = MainActivity.Temas.get(1).getPuntos();
-                    MainActivity.Temas.get(1).setPuntos(plusPuntos + 30);
+                    MainActivity.Temas.get(1).setPuntos(plusPuntos + 15);
                     break;
                 case 3:
                     plusPuntos = MainActivity.Temas.get(2).getPuntos();
-                    MainActivity.Temas.get(2).setPuntos(plusPuntos + 30);
+                    MainActivity.Temas.get(2).setPuntos(plusPuntos + 15);
                     break;
                 case 4:
                     plusPuntos = MainActivity.Temas.get(3).getPuntos();
-                    MainActivity.Temas.get(3).setPuntos(plusPuntos + 30);
+                    MainActivity.Temas.get(3).setPuntos(plusPuntos + 15);
                     break;
             }
         }

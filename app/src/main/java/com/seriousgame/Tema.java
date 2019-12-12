@@ -63,8 +63,15 @@ public class Tema extends AppCompatActivity {
         }
 
         if (requestCode == 1234 && resultCode == RESULT_OK) {
-            finish();
-            startActivity(getIntent());
+            destino = data.getExtras().getInt("destino");
+            if(destino == 0) {
+                finish();
+                startActivity(getIntent());
+            } else if (destino == 1) {
+                finish();
+                startActivity(getIntent());
+            }
+
         }
         if (requestCode == 12345 && resultCode == RESULT_OK) {
             destino = data.getExtras().getInt("destino");

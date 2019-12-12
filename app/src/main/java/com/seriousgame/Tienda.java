@@ -39,6 +39,10 @@ public class Tienda extends AppCompatActivity {
         if (requestCode == 1234 && resultCode == RESULT_OK) {
             destino = data.getExtras().getInt("destino");
             if(destino != 3) {
+                Intent intent = new Intent();
+                destino = 1;
+                intent.putExtra("destino", destino);
+                setResult(RESULT_OK, intent);
                 finish();
             }
         }
@@ -177,6 +181,22 @@ public class Tienda extends AppCompatActivity {
                             MainActivity.Tienda.get(positionImg).setComprado(true);
                             MainActivity.User.get(0).setMonedas(MainActivity.User.get(0).getMonedas() - imgperfil.getPrecio());
                             MainActivity.FotosComprado.add(imgperfil);
+
+                            if(origenRec == 1) {
+                                Intent intent = new Intent();
+                                destino = 3;
+                                intent.putExtra("destino", destino);
+                                setResult(RESULT_OK, intent);
+                                finish();
+                            }
+                            if(origenRec == 2) {
+                                Intent intent = new Intent();
+                                destino = 5;
+                                intent.putExtra("destino", destino);
+                                setResult(RESULT_OK, intent);
+                                finish();
+                            }
+
                             Intent intent = new Intent();
                             destino = 3;
                             intent.putExtra("destino", destino);

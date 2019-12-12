@@ -44,10 +44,8 @@ public class Perfil extends AppCompatActivity {
 
         if (requestCode == 12345 && resultCode == RESULT_OK) {
             destino = data.getExtras().getInt("destino");
-            if(destino != 2) {
-                finish();
-            }
-            if(destino == 3) {
+
+            if(destino == 5) {
                 Intent intent = new Intent(Perfil.this, Tienda.class);
 
                 destino = 3;
@@ -55,6 +53,25 @@ public class Perfil extends AppCompatActivity {
                 intent.putExtra("origen", origenEnv);
 
                 startActivityForResult(intent, 12345);
+            }
+            else if(destino == 3) {
+                Intent intent = new Intent(Perfil.this, Tienda.class);
+
+                destino = 3;
+                intent.putExtra("destino", destino);
+                intent.putExtra("origen", origenEnv);
+
+                startActivityForResult(intent, 12345);
+            }
+            else if(destino == 1) {
+                Intent intent = new Intent();
+
+                destino = 0;
+                intent.putExtra("destino", destino);
+                setResult(RESULT_OK, intent);
+                finish();
+            } else if(destino != 2) {
+                finish();
             }
         }
         if (requestCode == 12347 && resultCode == RESULT_OK) {

@@ -49,6 +49,17 @@ public class MainActivity extends AppCompatActivity {
     public static int fet5 = 0;
     public static int fet6 = 0;
 
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 12345 && resultCode == RESULT_OK) {
+            int destino0 = data.getExtras().getInt("destino");
+            if (destino0 == 0){
+                Intent intent = new Intent(MainActivity.this, Tema.class);
+
+                startActivityForResult(intent, 12345);
+            }
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -150,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
 //--------------------------------------------------------------------------------------------------------------------\\
 //----------------------------------------------> Nombre/Monedas Usuario <----------------------------------------------\\
         String usuarioNombre = preferencias.getString("usuarioNombre", "Sin nombre");
-        int usuarioMonedas = preferencias.getInt("usuarioMonedas", 10000);
+        int usuarioMonedas = preferencias.getInt("usuarioMonedas", 0);
 //----------------------------------------------------------------------------------------------------------------------\\
 //----------------------------------------------> Logros Progreso <----------------------------------------------\\
         int logro1Progres = preferencias.getInt("logro1Progres", 0);
@@ -419,7 +430,7 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("destino", destino);
                     intent.putExtra("origen", origen);
 
-                    context.startActivity(intent);
+                    startActivityForResult(intent, 12345);
                 }
             });
 
