@@ -158,6 +158,8 @@
             android:id="@+id/tvProgreso"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:autoSizeTextType="uniform"
+            android:fontFamily="@font/montserrat"
             android:gravity="center_horizontal"
             android:textColor="@color/gold"
             android:textSize="18sp"
