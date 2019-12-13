@@ -239,6 +239,7 @@
         android:text="Tienda"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:autoSizeTextType="uniform"
         app:layout_constraintBottom_toTopOf="@+id/guideline36"
         app:layout_constraintEnd_toStartOf="@+id/guideline22"
         app:layout_constraintStart_toStartOf="@+id/guideline19"
