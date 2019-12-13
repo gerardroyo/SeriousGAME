@@ -119,13 +119,14 @@
         android:id="@+id/tvAtras"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:fontFamily="@font/montserrat"
         android:gravity="center"
+        android:outlineAmbientShadowColor="@color/blue"
+        android:outlineSpotShadowColor="@color/blue"
+        android:shadowColor="@color/blue"
         android:text="Atrás"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:outlineAmbientShadowColor="@color/blue"
-        android:shadowColor="@color/blue"
-        android:outlineSpotShadowColor="@color/blue"
         app:layout_constraintBottom_toTopOf="@+id/guideline94"
         app:layout_constraintEnd_toStartOf="@+id/guideline95"
         app:layout_constraintStart_toStartOf="parent"
@@ -135,6 +136,7 @@
         android:id="@+id/tvSiguiente"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:fontFamily="@font/montserrat"
         android:gravity="center"
         android:text="Siguiente"
         android:textSize="18sp"
@@ -143,4 +145,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline96"
         app:layout_constraintTop_toTopOf="@+id/guideline93" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

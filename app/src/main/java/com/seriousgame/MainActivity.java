@@ -399,8 +399,6 @@ public class MainActivity extends AppCompatActivity {
 
         public View getView(final int positionTema, View convertView, ViewGroup parent) {
 
-
-
             LayoutInflater inflater = LayoutInflater.from(getContext());
             View item = inflater.inflate(R.layout.activity_mostrar_lista_main, null);
 

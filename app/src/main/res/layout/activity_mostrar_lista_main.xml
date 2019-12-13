@@ -42,6 +42,7 @@
                 android:id="@+id/tvNombre"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:fontFamily="@font/montserrat"
                 android:gravity="center_vertical"
                 android:text="Sumar"
                 android:textSize="30sp"

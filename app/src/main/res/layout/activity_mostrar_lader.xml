@@ -82,6 +82,7 @@
             android:id="@+id/tvPuntos"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:fontFamily="@font/montserrat"
             android:gravity="center_vertical"
             android:text="TextView"
             android:textSize="24sp"
