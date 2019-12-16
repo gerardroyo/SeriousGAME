@@ -283,7 +283,7 @@ public class PreguntaTexto extends AppCompatActivity {
 
         }
 
-        if(aciertos == 10) {
+        if(aciertos == 10 ) {
             MainActivity.Logros.get(0).setProgreso(100);
             int progres = MainActivity.Logros.get(1).getProgreso();
 

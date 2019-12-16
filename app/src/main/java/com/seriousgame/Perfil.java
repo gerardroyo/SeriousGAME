@@ -507,6 +507,7 @@ public class Perfil extends AppCompatActivity {
         int lecAcDivFacil = 0;
         int lecAcDivNormal = 0;
         int lecAcDivDificil = 0;
+
 //----------------------------------------------------------------------------------------------------------------\\
 //----------------------------------------------> Dificultad Bloqueado <----------------------------------------------\\
         boolean difBloquSumFacil = false;
