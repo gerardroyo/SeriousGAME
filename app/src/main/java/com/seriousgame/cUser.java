@@ -6,7 +6,7 @@ public class cUser implements Serializable {
 
     private String nombre;
     private String foto;
-    private int monedas = 10000;
+    private int monedas = 10;
 
 
     public cUser(String sNombre, String sFoto) {

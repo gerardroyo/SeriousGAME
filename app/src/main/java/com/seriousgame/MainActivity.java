@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<cTema> Temas = new ArrayList<cTema>();
 
     /*public static ArrayList<cDificultad> Dificultad = new ArrayList<cDificultad>();
-
     public static ArrayList<cLecciones> Lecciones = new ArrayList<cLecciones>();*/
 
     public static ArrayList<cUser> User = new ArrayList<cUser>();

@@ -67,25 +67,33 @@ public class Guia extends AppCompatActivity {
     public void carregarLayout() {
 
         final SeekBar sb = (SeekBar) findViewById(R.id.seekBar);
+        ImageView img = (ImageView) findViewById(R.id.imgGuia);
+        TextView tv = (TextView) findViewById(R.id.tvTitolsito);
+        String src;
         if (sb.getProgress() == 0) {
-            ImageView img = (ImageView) findViewById(R.id.imgGuia);
-            String src = "@drawable/guia1";
+            tv.setText("Elección del tema");
+
+            src = "@drawable/guia1";
             img.setImageResource(getResources().getIdentifier(src, "drawable", getOpPackageName()));
         } else if (sb.getProgress() == 1) {
-            ImageView img = (ImageView) findViewById(R.id.imgGuia);
-            String src = "@drawable/guia2_1";
+            tv.setText("Inicio");
+
+            src = "@drawable/guia2_1";
             img.setImageResource(getResources().getIdentifier(src, "drawable", getOpPackageName()));
         } else if (sb.getProgress() == 2) {
-            ImageView img = (ImageView) findViewById(R.id.imgGuia);
-            String src = "@drawable/guia2_2";
+            tv.setText("Inicio");
+
+            src = "@drawable/guia2_2";
             img.setImageResource(getResources().getIdentifier(src, "drawable", getOpPackageName()));
         } else if (sb.getProgress() == 3) {
-            ImageView img = (ImageView) findViewById(R.id.imgGuia);
-            String src = "@drawable/guia3";
+            tv.setText("Perfil de Usuario");
+
+            src = "@drawable/guia3";
             img.setImageResource(getResources().getIdentifier(src, "drawable", getOpPackageName()));
         } else if (sb.getProgress() == 4) {
-            ImageView img = (ImageView) findViewById(R.id.imgGuia);
-            String src = "@drawable/guia4";
+            tv.setText("Tienda");
+
+            src = "@drawable/guia4";
             img.setImageResource(getResources().getIdentifier(src, "drawable", getOpPackageName()));
         }
 

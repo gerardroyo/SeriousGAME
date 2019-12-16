@@ -87,6 +87,7 @@
             android:text="TextView"
             android:textSize="24sp"
             android:textStyle="bold"
+
             app:layout_constraintBottom_toTopOf="@+id/guideline83"
             app:layout_constraintEnd_toStartOf="@+id/guideline28"
             app:layout_constraintStart_toStartOf="@+id/guideline78"

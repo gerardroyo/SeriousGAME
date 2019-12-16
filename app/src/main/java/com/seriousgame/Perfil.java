@@ -167,7 +167,7 @@ public class Perfil extends AppCompatActivity {
                 final EditText edtValor = new EditText(Perfil.this);
                 ad.setView(edtValor);
 
-                ad.setButton(AlertDialog.BUTTON_POSITIVE,"ACTUALITZAR", new DialogInterface.OnClickListener() {
+                ad.setButton(AlertDialog.BUTTON_POSITIVE,"ACTUALIZAR", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
 
 
@@ -527,7 +527,7 @@ public class Perfil extends AppCompatActivity {
 //--------------------------------------------------------------------------------------------------------------------\\
 //----------------------------------------------> Nombre/Monedas Usuario <----------------------------------------------\\
         String usuarioNombre = "Sin nombre";
-        int usuarioMonedas = 10000;
+        int usuarioMonedas = 0;
 //----------------------------------------------------------------------------------------------------------------------\\
 //----------------------------------------------> Logros Progreso <----------------------------------------------\\
         int logro1Progres = 0;
